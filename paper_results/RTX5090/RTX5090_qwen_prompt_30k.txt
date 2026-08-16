@@ -1,0 +1,597 @@
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed0
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 15
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 12.10888801900049, 'p95_latency': 17.492216911772264, 'avg_ttft': 10.681461310200394, 'p95_ttft': 15.977206731284967, 'avg_tpot': 0.04604602286451927, 'p95_tpot': 0.04902745375236977, 'makespan': 39.558920548064634, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 10.473714203410783, 'p95_latency': 15.312116654915735, 'avg_ttft': 8.21139880559252, 'p95_ttft': 12.891362610715442, 'avg_tpot': 0.07297791605865363, 'p95_tpot': 0.07860248505265542, 'makespan': 34.61875399004202, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 9.582413333336202, 'p95_latency': 14.208292132185306, 'avg_ttft': 6.060284090406882, 'p95_ttft': 9.986560308071784, 'avg_tpot': 0.1136170723525587, 'p95_tpot': 0.1361227946750249, 'makespan': 31.218598025967367, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 9.758174768586953, 'p95_latency': 15.160547391045839, 'avg_ttft': 4.559630825463683, 'p95_ttft': 8.018655533797572, 'avg_tpot': 0.1676949659072023, 'p95_tpot': 0.24208095131945165, 'makespan': 31.10913236194756, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 10.021801721661662, 'p95_latency': 16.083408830256666, 'avg_ttft': 3.960043271988009, 'p95_ttft': 6.953867229865863, 'avg_tpot': 0.195540595150763, 'p95_tpot': 0.435224744117248, 'makespan': 31.005336925038137, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.968302095681429, 'p95_latency': 16.870579967438243, 'avg_ttft': 3.832098506879993, 'p95_ttft': 6.481247840332798, 'avg_tpot': 0.19794205125165923, 'p95_tpot': 0.4849542951830963, 'makespan': 31.023239537025802, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed0
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 25
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 21.857223001839593, 'p95_latency': 35.41656026598066, 'avg_ttft': 20.394823688003235, 'p95_ttft': 33.892410531034685, 'avg_tpot': 0.04717417141407608, 'p95_tpot': 0.049221795985865735, 'makespan': 66.59564298705664, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 18.381752991769464, 'p95_latency': 27.57251342339441, 'avg_ttft': 16.051654255292377, 'p95_ttft': 25.681006916845213, 'avg_tpot': 0.07516447537022854, 'p95_tpot': 0.07877451860000409, 'makespan': 57.97813111694995, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 16.279430413856172, 'p95_latency': 22.174224024498834, 'avg_ttft': 12.325965736294165, 'p95_ttft': 19.741861616354434, 'avg_tpot': 0.12753111863103245, 'p95_tpot': 0.13644987284356067, 'makespan': 50.644880402018316, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 16.260447202436627, 'p95_latency': 22.389095371542496, 'avg_ttft': 9.492702975231223, 'p95_ttft': 14.986816060938873, 'avg_tpot': 0.21831432990985172, 'p95_tpot': 0.2442684717431304, 'makespan': 45.259288553963415, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 19.69957150912378, 'p95_latency': 28.297289363574237, 'avg_ttft': 8.074611361771822, 'p95_ttft': 13.845173298381267, 'avg_tpot': 0.3749987144307083, 'p95_tpot': 0.4664946943168498, 'makespan': 42.65987048309762, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 25.54666326667648, 'p95_latency': 35.76326126218773, 'avg_ttft': 7.521497567594051, 'p95_ttft': 12.398389955796299, 'avg_tpot': 0.581456958034917, 'p95_tpot': 0.9055435754771856, 'makespan': 41.5476988509763, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed1
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 24
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 24, 'request_rate': 0.48, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 15.125729451916413, 'p95_latency': 24.986392502451775, 'avg_ttft': 13.712557722896841, 'p95_ttft': 23.45948442856897, 'avg_tpot': 0.04558618480708295, 'p95_tpot': 0.04938583867718285, 'makespan': 72.46582355094142, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 24, 'request_rate': 0.48, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 12.082546241101227, 'p95_latency': 17.317562424676723, 'avg_ttft': 9.845883597333644, 'p95_ttft': 15.916052364127241, 'avg_tpot': 0.07215040786347042, 'p95_tpot': 0.07882928118154767, 'makespan': 64.44410051603336, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 24, 'request_rate': 0.48, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 10.347294555336703, 'p95_latency': 14.367441313469314, 'avg_ttft': 6.5604691821305705, 'p95_ttft': 10.49019645496155, 'avg_tpot': 0.12215565720019782, 'p95_tpot': 0.13661112948658788, 'makespan': 57.76733117096592, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 24, 'request_rate': 0.48, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 9.384620261659924, 'p95_latency': 14.18964246457326, 'avg_ttft': 4.619774954669992, 'p95_ttft': 8.18036015263642, 'avg_tpot': 0.15370468732225584, 'p95_tpot': 0.24340068080552643, 'makespan': 54.24670271098148, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 24, 'request_rate': 0.48, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 9.377409768513948, 'p95_latency': 15.119217010185821, 'avg_ttft': 4.132903604220094, 'p95_ttft': 7.076592556480316, 'avg_tpot': 0.1691776182030275, 'p95_tpot': 0.4149348777523564, 'makespan': 53.20146840403322, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 24, 'request_rate': 0.48, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.06158504197568, 'p95_latency': 14.763275272183819, 'avg_ttft': 4.009101102434215, 'p95_ttft': 6.6102551687567015, 'avg_tpot': 0.16298335288843435, 'p95_tpot': 0.4075691079923642, 'makespan': 52.73119633097667, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed1
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 36
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 36, 'request_rate': 0.72, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 33.01862815582879, 'p95_latency': 63.02998695903807, 'avg_ttft': 31.562339007527854, 'p95_ttft': 61.51097622347879, 'avg_tpot': 0.046977069300030254, 'p95_tpot': 0.049379315717341075, 'makespan': 104.18742052500602, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 36, 'request_rate': 0.72, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 27.861575303967886, 'p95_latency': 52.05891930573853, 'avg_ttft': 25.5554078955061, 'p95_ttft': 49.820612284966046, 'avg_tpot': 0.07439249704715438, 'p95_tpot': 0.07913902863454554, 'makespan': 91.89079103397671, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 36, 'request_rate': 0.72, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 24.341842999080352, 'p95_latency': 43.012430893286364, 'avg_ttft': 20.418329413453144, 'p95_ttft': 39.81096508103656, 'avg_tpot': 0.12656495437507123, 'p95_tpot': 0.13656621865999524, 'makespan': 81.37063855002634, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 36, 'request_rate': 0.72, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 23.380894841118586, 'p95_latency': 36.582831554551376, 'avg_ttft': 16.582789907231927, 'p95_ttft': 32.676078640302876, 'avg_tpot': 0.21929370754473096, 'p95_tpot': 0.24453200753158588, 'makespan': 73.846407643985, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 36, 'request_rate': 0.72, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 26.952712105192607, 'p95_latency': 35.06411243946059, 'avg_ttft': 14.805323704226693, 'p95_ttft': 29.40609606797807, 'avg_tpot': 0.39185123874083594, 'p95_tpot': 0.46855520300995257, 'makespan': 70.52177188696805, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 36, 'request_rate': 0.72, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 34.718882447752144, 'p95_latency': 42.5100469107565, 'avg_ttft': 14.093251704716952, 'p95_ttft': 28.226522456418024, 'avg_tpot': 0.6653429271946837, 'p95_tpot': 0.9284698538005262, 'makespan': 69.21504034101963, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed2
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 18
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 10.475508825504221, 'p95_latency': 14.090299398021306, 'avg_ttft': 9.023735973447199, 'p95_ttft': 12.94433603444486, 'avg_tpot': 0.046831382324420065, 'p95_tpot': 0.04935039270090901, 'makespan': 48.12878871697467, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 8.053699689341657, 'p95_latency': 11.77972305950825, 'avg_ttft': 6.007321918557864, 'p95_ttft': 9.430464061716338, 'avg_tpot': 0.06601218615431592, 'p95_tpot': 0.0790356423341549, 'makespan': 42.39217606803868, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 7.550707956944178, 'p95_latency': 11.14082217669347, 'avg_ttft': 4.495623951842491, 'p95_ttft': 6.9230305642820875, 'avg_tpot': 0.09855109693876411, 'p95_tpot': 0.13631995327098506, 'makespan': 41.31922252802178, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 7.090788269350822, 'p95_latency': 12.10588172749849, 'avg_ttft': 3.575837519731269, 'p95_ttft': 5.525492752925491, 'avg_tpot': 0.11338550805224366, 'p95_tpot': 0.23875827410149447, 'makespan': 40.45097516302485, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 7.0285523924523865, 'p95_latency': 13.409497051942163, 'avg_ttft': 3.2273444166833847, 'p95_ttft': 5.105931986292124, 'avg_tpot': 0.12261961212158069, 'p95_tpot': 0.3239302938096149, 'makespan': 39.96938928891905, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.825896004564129, 'p95_latency': 13.085581647249636, 'avg_ttft': 3.134656188233445, 'p95_ttft': 5.213037176890065, 'avg_tpot': 0.11907225213969948, 'p95_tpot': 0.31548224655787394, 'makespan': 39.85716097301338, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed2
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 32
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 29.20502627222595, 'p95_latency': 51.98741427055211, 'avg_ttft': 27.719612247339683, 'p95_ttft': 51.14671341321664, 'avg_tpot': 0.04791658144794412, 'p95_tpot': 0.0494060413977657, 'makespan': 85.74969165190123, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 24.444719097849884, 'p95_latency': 42.12082503571291, 'avg_ttft': 22.091973929804226, 'p95_ttft': 40.47263918159879, 'avg_tpot': 0.07589500542082768, 'p95_tpot': 0.07883609210539068, 'makespan': 74.55038951197639, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 21.279958479593915, 'p95_latency': 35.32995451820316, 'avg_ttft': 17.263195154213463, 'p95_ttft': 31.335204041295217, 'avg_tpot': 0.12957301049614361, 'p95_tpot': 0.13664522379460264, 'makespan': 64.99114343500696, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 20.656309243109717, 'p95_latency': 31.170955379708904, 'avg_ttft': 13.71272445350769, 'p95_ttft': 25.09399678389891, 'avg_tpot': 0.22398660611619445, 'p95_tpot': 0.2452050216527911, 'makespan': 58.202994834049605, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 24.263009477919695, 'p95_latency': 29.32575071673491, 'avg_ttft': 11.974955582696566, 'p95_ttft': 22.211991056700935, 'avg_tpot': 0.39638883532977837, 'p95_tpot': 0.4677043594027524, 'makespan': 55.018032939056866, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 31.69992526102942, 'p95_latency': 40.70509822587483, 'avg_ttft': 11.291448802443483, 'p95_ttft': 21.188031892903382, 'avg_tpot': 0.6583379502769657, 'p95_tpot': 0.9236902710457798, 'makespan': 53.76525643700734, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed3
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 19
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 19, 'request_rate': 0.38, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 7.6404013314750046, 'p95_latency': 13.05854900931008, 'avg_ttft': 6.465277088211702, 'p95_ttft': 11.533646549435796, 'avg_tpot': 0.03790723365365491, 'p95_tpot': 0.04939506793687601, 'makespan': 53.23430537106469, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 19, 'request_rate': 0.38, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 7.149855562902399, 'p95_latency': 11.400024010834747, 'avg_ttft': 5.318028714520072, 'p95_ttft': 9.01336120460182, 'avg_tpot': 0.059091188657494395, 'p95_tpot': 0.07890599379128206, 'makespan': 50.302494551986456, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 19, 'request_rate': 0.38, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 7.001834682997708, 'p95_latency': 11.296168442757335, 'avg_ttft': 4.299613395307556, 'p95_ttft': 7.63584822156699, 'avg_tpot': 0.08716842863516619, 'p95_tpot': 0.13645032486885847, 'makespan': 48.181888120947406, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 19, 'request_rate': 0.38, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 8.748909937524187, 'p95_latency': 13.236756001645688, 'avg_ttft': 4.411155392893737, 'p95_ttft': 9.763152750930747, 'avg_tpot': 0.13992756595582098, 'p95_tpot': 0.240499747509978, 'makespan': 48.044014247949235, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 19, 'request_rate': 0.38, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 7.136096437051157, 'p95_latency': 12.203145564463918, 'avg_ttft': 3.2441167205841723, 'p95_ttft': 5.933905955834778, 'avg_tpot': 0.12554773278925757, 'p95_tpot': 0.32648686563648693, 'makespan': 47.951294798986055, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 19, 'request_rate': 0.38, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.948874630040097, 'p95_latency': 11.924135157698762, 'avg_ttft': 3.2044801301028776, 'p95_ttft': 6.082652817480264, 'avg_tpot': 0.12078691935281353, 'p95_tpot': 0.31889129073374084, 'makespan': 47.97002811997663, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed3
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 27
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 17.75028712900476, 'p95_latency': 33.12817493434995, 'avg_ttft': 16.425466289903312, 'p95_ttft': 31.605748872633555, 'avg_tpot': 0.04273615610004673, 'p95_tpot': 0.04928746555083161, 'makespan': 73.6031230649678, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 14.881509168340859, 'p95_latency': 26.685376342735253, 'avg_ttft': 12.785205637191043, 'p95_ttft': 24.258548166579565, 'avg_tpot': 0.06762269455321988, 'p95_tpot': 0.07888005846292681, 'makespan': 65.43331730400678, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 13.103656138146848, 'p95_latency': 21.28810869549634, 'avg_ttft': 9.568571379537591, 'p95_ttft': 17.87312478007516, 'avg_tpot': 0.11403499221320185, 'p95_tpot': 0.13690812214908582, 'makespan': 58.37659773998894, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 13.117283948408268, 'p95_latency': 17.838419302506374, 'avg_ttft': 7.099916861478791, 'p95_ttft': 13.127903489198069, 'avg_tpot': 0.19410861570740245, 'p95_tpot': 0.24452037035389954, 'makespan': 53.13433203299064, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 16.103301283890485, 'p95_latency': 21.894355485378764, 'avg_ttft': 5.941009264180644, 'p95_ttft': 10.918214723246637, 'avg_tpot': 0.32781587160354325, 'p95_tpot': 0.46562610914848085, 'makespan': 50.759616084978916, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 13.597858754603227, 'p95_latency': 19.68927264646627, 'avg_ttft': 5.381478626518166, 'p95_ttft': 9.481319711566902, 'avg_tpot': 0.26504452026080844, 'p95_tpot': 0.5591678701957027, 'makespan': 49.19586941297166, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed4
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 28
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 17.786562172425743, 'p95_latency': 27.546440462820463, 'avg_ttft': 16.313185079355858, 'p95_ttft': 26.02667557017994, 'avg_tpot': 0.047528293324835075, 'p95_tpot': 0.04937052995214359, 'makespan': 74.94959796196781, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 13.746668934048753, 'p95_latency': 19.554164755821695, 'avg_ttft': 11.391485893259025, 'p95_ttft': 17.398733603948493, 'avg_tpot': 0.07597364647708799, 'p95_tpot': 0.07922686258755293, 'makespan': 65.17951915599406, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 11.173480967109624, 'p95_latency': 16.258211221580858, 'avg_ttft': 7.181757868849672, 'p95_ttft': 12.027350482757901, 'avg_tpot': 0.128765261234192, 'p95_tpot': 0.13728827079513953, 'makespan': 56.82754842401482, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 9.556253385721773, 'p95_latency': 13.672984814463415, 'avg_ttft': 4.016318741836585, 'p95_ttft': 8.818478264298756, 'avg_tpot': 0.17870756915758668, 'p95_tpot': 0.24227190931447812, 'makespan': 50.75940122001339, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 7.581681267503882, 'p95_latency': 12.789231075823771, 'avg_ttft': 3.478246446644854, 'p95_ttft': 7.810834188212175, 'avg_tpot': 0.1323688651890009, 'p95_tpot': 0.303315330747958, 'makespan': 49.98453303996939, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 7.1771905853862075, 'p95_latency': 12.433772916457382, 'avg_ttft': 3.326319011705761, 'p95_ttft': 7.789865889656356, 'avg_tpot': 0.12422166366711117, 'p95_tpot': 0.2963438569684512, 'makespan': 49.89093276998028, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed4
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 32
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 512 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_512_s256', 'max_num_batched_tokens': 512, 'max_num_seqs': 256, 'avg_latency': 24.69121676808936, 'p95_latency': 42.47800248253625, 'avg_ttft': 23.21122237225063, 'p95_ttft': 41.433065618580436, 'avg_tpot': 0.04774175470447517, 'p95_tpot': 0.049314007226888446, 'makespan': 85.51589972199872, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 1024 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_1024_s256', 'max_num_batched_tokens': 1024, 'max_num_seqs': 256, 'avg_latency': 20.072022561507765, 'p95_latency': 33.389508806820956, 'avg_ttft': 17.708932815283333, 'p95_ttft': 30.9468788323109, 'avg_tpot': 0.0762287014911107, 'p95_tpot': 0.07915866159075391, 'makespan': 74.5260896619875, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 16.87466784992648, 'p95_latency': 26.411194551666267, 'avg_ttft': 12.865137923810835, 'p95_ttft': 22.283648719079792, 'avg_tpot': 0.12933967503598862, 'p95_tpot': 0.13710425220948133, 'makespan': 64.89518625393976, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 4096 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_4096_s256', 'max_num_batched_tokens': 4096, 'max_num_seqs': 256, 'avg_latency': 16.199849154556432, 'p95_latency': 22.238759315817152, 'avg_ttft': 9.24955425520966, 'p95_ttft': 16.091622296522836, 'avg_tpot': 0.22420306126925074, 'p95_tpot': 0.2452202796812109, 'makespan': 58.06714062904939, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 8192 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_8192_s256', 'max_num_batched_tokens': 8192, 'max_num_seqs': 256, 'avg_latency': 18.229954647256818, 'p95_latency': 25.319742928422055, 'avg_ttft': 7.5269001272754394, 'p95_ttft': 13.143585883697959, 'avg_tpot': 0.34525982322520576, 'p95_tpot': 0.4693197589529107, 'makespan': 54.86282740102615, 'failed': 0, 'error': ''}
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 22.776463870752195, 'p95_latency': 37.50583480016794, 'avg_ttft': 6.876825948860642, 'p95_ttft': 12.15422421072726, 'avg_tpot': 0.5128915458674694, 'p95_tpot': 0.9157461779141393, 'makespan': 53.57329392200336, 'failed': 0, 'error': ''}
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed0
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 15
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 8.602608042249146, 'p95_latency': 14.452124220307448, 'avg_ttft': 4.973993246513419, 'p95_ttft': 8.902300978335552, 'avg_tpot': 0.11705209018502345, 'p95_tpot': 0.20146639648704756, 'makespan': 31.005677351960912, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed0
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 25
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 15.951729982797987, 'p95_latency': 21.705450006155296, 'avg_ttft': 11.9720526378043, 'p95_ttft': 19.30723565861117, 'avg_tpot': 0.1283766885481835, 'p95_tpot': 0.13726654044547748, 'makespan': 49.88545025407802, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed1
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 24
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 24, 'request_rate': 0.48, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.255032967295847, 'p95_latency': 14.672329532954606, 'avg_ttft': 5.328410026117733, 'p95_ttft': 9.253755760344209, 'avg_tpot': 0.12666525616703594, 'p95_tpot': 0.207451923935291, 'makespan': 55.47352403192781, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed1
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 36
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 36, 'request_rate': 0.72, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 23.816982884205775, 'p95_latency': 42.235895942983916, 'avg_ttft': 19.856879211169954, 'p95_ttft': 39.242364001780516, 'avg_tpot': 0.1277452797753491, 'p95_tpot': 0.14113696725314273, 'makespan': 80.41306920000352, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed2
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 18
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 7.585707965378081, 'p95_latency': 15.192571510712149, 'avg_ttft': 3.7733004259838103, 'p95_ttft': 6.5940097177226535, 'avg_tpot': 0.1229808883675571, 'p95_tpot': 0.27070184635550476, 'makespan': 40.31871073099319, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed2
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 32
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 21.338825687282224, 'p95_latency': 35.84848422077484, 'avg_ttft': 17.291818820718618, 'p95_ttft': 31.358293205179507, 'avg_tpot': 0.130548608598826, 'p95_tpot': 0.13993107833441407, 'makespan': 64.83513616607524, 'failed': 0, 'error': ''}
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed3
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 19
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 19, 'request_rate': 0.38, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.483231387309436, 'p95_latency': 10.055225729011, 'avg_ttft': 3.968902117676886, 'p95_ttft': 7.2541705596726365, 'avg_tpot': 0.08110739579459839, 'p95_tpot': 0.15726423138910298, 'makespan': 47.944859222043306, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed3
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 27
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 12.741612777890017, 'p95_latency': 21.33824256284861, 'avg_ttft': 9.183729370680844, 'p95_ttft': 17.44721865308238, 'avg_tpot': 0.11477043249061845, 'p95_tpot': 0.1366417348666507, 'makespan': 57.56974685401656, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-0p8_10-0p2_10-0p8_10-0p2_seed4
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 28
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.8,10:0.2,10:0.8,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.319955536713158, 'p95_latency': 18.024251088220627, 'avg_ttft': 4.302327247436291, 'p95_ttft': 9.548295715160203, 'avg_tpot': 0.16185897707344732, 'p95_tpot': 0.2779539214353257, 'makespan': 51.44253850099631, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_p30000_o32_phases_10-0p2_10-1p2_10-0p2_10-1p2_10-0p2_seed4
+RUN: /home/timo/miniconda3/envs/vllm-exp/bin/python benchmark_vLLM.py --model qwen_3b --prompt-tokens 30000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --phases 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+====================================================================================================
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.2,10:0.2,10:1.2,10:0.2
+prompt tokens   : 30000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 32
+================================================================================
+START SERVER: vllm serve Qwen/Qwen2.5-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 30000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.2,10:0.2,10:1.2,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 30000, 'prompt_p50': 30000.0, 'prompt_p95': 30000.0, 'prompt_max': 30000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 15.545226746224216, 'p95_latency': 24.078446452971548, 'avg_ttft': 10.815945597631071, 'p95_ttft': 20.064044057572026, 'avg_tpot': 0.1525574564062305, 'p95_tpot': 0.27087246224400585, 'makespan': 62.30911149107851, 'failed': 0, 'error': ''}
