@@ -4,7 +4,7 @@ This repository contains the code and experimental results for:
 
 > **P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving**  
 > Timo Sämann  
-> [arXiv link]([https://arxiv.org/abs/2608.15171])
+> [arXiv link](https://arxiv.org/abs/2608.15171)
 
 
 ![Motivation and overview of P-PAS. ](figures/overview_figure.png)
