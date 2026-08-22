@@ -130,14 +130,14 @@ def label_scheduler(row: pd.Series) -> str:
 
     if pd.notna(value):
         try:
-            return f"MBT {int(value) // 1024}k"
+            return f"MBT {int(value)}"
         except (TypeError, ValueError):
             pass
 
     if config_name.startswith("mbt_"):
         try:
             token_text = config_name.split("_", maxsplit=2)[1]
-            return f"MBT {int(token_text) // 1024}k"
+            return f"MBT {int(token_text)}"
         except (IndexError, ValueError):
             pass
 

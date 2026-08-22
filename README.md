@@ -1,34 +1,46 @@
 # P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving
 
-This repository contains the code and experimental results for:
+P-PAS dynamically adapts the vLLM token scheduling budget to current serving
+pressure. Large token budgets can be beneficial under low pressure, while
+smaller budgets can reduce latency as concurrent prefill and decode work grows.
 
-> **P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving**  
-> Timo Sämann  
-> [arXiv link](https://arxiv.org/abs/2608.15171)
+> **Paper:** [P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving](https://arxiv.org/abs/2608.15171)  
+> Timo Sämann
 
+![Motivation and overview of P-PAS](figures/overview_figure.png)
 
-![Motivation and overview of P-PAS. ](figures/overview_figure.png)
+## P-PAS on vLLM 0.27.1
 
+P-PAS has been ported to **vLLM 0.27.1** and tested with recent
+NVFP4 models on an NVIDIA GeForce RTX 5090.
 
-Long-context LLM applications such as retrieval-augmented generation (RAG) and agentic systems often process tens of thousands of input tokens to produce short outputs, making end-to-end request latency an important serving objective.
-We show that the maximum number of batched tokens (MBT), which controls the
-token scheduling budget in vLLM, has a scheduling-pressure-dependent effect
-on latency. Larger token budgets can reduce latency under low scheduling
-pressure, while smaller budgets become preferable under higher pressure.
-Consequently, no single static MBT performs best across load regimes.
+### Qwen3.8-27B NVFP4
 
-We introduce Prefill-Pressure Adaptive Scheduling (P-PAS), a lightweight
-policy that dynamically adapts the scheduling budget based on concurrent
-prefill and decode state. P-PAS retains a large token budget under low
-pressure and constrains prefill work as pressure increases. Across models,
-workloads, and GPUs, P-PAS maintains low end-to-end latency across changing
-load regimes, avoiding the limitations of a fixed MBT.
+On a dynamic long-context workload, P-PAS reduced average end-to-end latency
+by **14.7% compared with fixed MBT 2048**.
 
-Kernel-level profiling shows that large prefill chunks can improve execution
-efficiency under low scheduling pressure, but that this advantage varies
-across model–hardware configurations. As scheduling pressure increases,
-smaller chunks can instead reduce interference with active decoding,
-explaining the observed load-dependent MBT sensitivity.
+**Workload:** 20k input tokens, 32 output tokens, alternating serving pressure.
+
+[View Qwen3.8-27B NVFP4 results (PDF)](figures/qwen38_27b_ppas.pdf)
+
+### NVIDIA Nemotron-3.5-Lightning-30B-A3B-NVFP4
+
+P-PAS achieved the **lowest average end-to-end latency at every tested burst
+rate**, dynamically adapting between scheduling regimes that favor different
+fixed token budgets.
+
+**Workload:** 20k input tokens, 32 output tokens, alternating serving pressure.
+
+[View Nemotron-3.5-Lightning-30B results (PDF)](figures/nemotron_30b_ppas.pdf)
+
+## How P-PAS Works
+
+P-PAS uses serving pressure to dynamically select the token scheduling budget:
+
+- **Low pressure:** retain a large scheduling budget for efficient prefill.
+- **Higher pressure:** constrain prefill work to reduce interference with active decoding.
+
+The policy is implemented as a lightweight modification of the vLLM scheduler.
 
 ## Repository Structure
 
@@ -39,225 +51,122 @@ ppas-vllm/
 ├── evaluate_results.py
 ├── scheduler/
 │   ├── scheduler_ppas.py
-│   └── ppas_vllm_0.22.1.patch
-├── paper_results/
-│   ├── ...
-│   ├── nsys_systems/
-│   └── nsys_compute/
+│   └── ppas_vllm_0.27.1.patch
+├── figures/
+│   ├── overview_figure.png
+│   ├── qwen38_27b_ppas.pdf
+│   └── nemotron_30b_ppas.pdf
+├── results/
+│   ├── qwen/
+│   │   └── sweep_qwen.txt
+│   └── nemotron/
+│       └── sweep_nemotron.txt
 ├── LICENSE
 └── README.md
 ```
 
+## Installation
 
-- `benchmark.py` generates the long-context serving workloads.
-- `run_sweep.py` runs experiments across scheduler configurations and seeds.
-- `evaluate_results.py` aggregates the benchmark results.
-- `scheduler/` contains the complete P-PAS scheduler and the patch relative to vLLM 0.22.1.
-- `paper_results/` contains the raw experimental results and NVIDIA Nsight profiling data used in the paper.
-
-## Installation and vLLM Integration
-
-### Installation
-
-Create and activate a Conda environment with Python 3.12:
+Create a Python environment and install vLLM:
 
 ```bash
 conda create -n ppas-vllm python=3.12 -y
 conda activate ppas-vllm
-python -m pip install --upgrade pip setuptools wheel
+
+pip install vllm==0.27.1
 ```
 
-Install the required packages:
+P-PAS modifies the vLLM scheduler in:
 
-```bash
-pip install \
-  vllm==0.22.1 \
-  transformers==5.10.2 \
-  openai==2.41.0 \
-  numpy==2.3.5 \
-  pandas==3.0.3 \
-  huggingface_hub==1.18.0 \
-  requests==2.34.2
+```text
+vllm/v1/core/sched/scheduler.py
 ```
 
-Download the models used in the experiments from the Hugging Face Hub:
+The repository provides:
 
-```bash
-hf download Qwen/Qwen2.5-3B-Instruct
-hf download Qwen/Qwen2.5-0.5B-Instruct
-hf download HuggingFaceTB/SmolLM3-3B
-```
+- `scheduler/ppas_vllm_0.27.1.patch` — patch against vLLM 0.27.1
+- `scheduler/scheduler_ppas.py` — complete modified scheduler
 
-### P-PAS Scheduler
-
-P-PAS is implemented as a lightweight modification of the vLLM 0.22.1
-scheduler (`vllm/v1/core/sched/scheduler.py`).
-
-The repository provides both:
-
-- `scheduler/ppas_vllm_0.22.1.patch`: patch against the vLLM 0.22.1 scheduler
-- `scheduler/scheduler_ppas.py`: complete modified scheduler for inspection or direct replacement
-
-The patch is the recommended installation method.
-
-Locate the active Python environment and apply the patch:
+Apply the patch from the active Python environment:
 
 ```bash
 SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
 cd "$SITE_PACKAGES"
-patch -p1 < /path/to/ppas-vllm/scheduler/ppas_vllm_0.22.1.patch
+patch -p1 < /path/to/ppas-vllm/scheduler/ppas_vllm_0.27.1.patch
 ```
 
-The patch is version-specific and targets vLLM 0.22.1.
+The patched scheduler behaves like standard vLLM unless P-PAS is enabled.
 
-The patched scheduler behaves as the standard vLLM scheduler unless
-`PPAS_ENABLED=1` is set.
+## Running P-PAS
 
-### Tested Environment
+`benchmark.py` contains presets for the configurations used in the current
+Qwen and Nemotron experiments.
 
-Experiments were conducted on the **NVIDIA GeForce RTX 5090**,
-**NVIDIA A100-SXM4-80GB**, and **NVIDIA H100 80GB HBM3**.
-
-The RTX 5090 and A100 experiments used:
-
-```text
-PyTorch:          2.11.0+cu130
-PyTorch CUDA:     13.0
-vLLM:             0.22.1
-Transformers:     5.10.2
-OpenAI:           2.41.0
-NumPy:            2.3.5
-Pandas:           3.0.3
-Hugging Face Hub: 1.18.0
-Requests:         2.34.2
-```
-
-The H100 experiments used the same software versions, but with
-**PyTorch 2.11.0+cu128 and CUDA 12.8**.
-
-
-
-## Running the Benchmarks
-
-Use `benchmark.py` to run a single workload across one or more scheduler
-configurations:
+### Qwen3.8-27B NVFP4
 
 ```bash
 python benchmark.py \
-  --model qwen_3b \
-  --prompt-tokens 25000 \
+  --model qwen_27b \
+  --prompt-tokens 20000 \
   --output-tokens 32 \
   --arrival-mode piecewise_poisson \
-  --phases 10:0.2,10:0.8,10:0.2,10:0.8,10:0.2 \
-  --configs 2048,16384,ppas
+  --phases 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1 \
+  --configs ppas_qwen,768,2048 \
+  --max-num-seqs 12
 ```
 
-Here, `2048` and `16384` select the fixed-MBT baselines, while `ppas`
-enables P-PAS.
+The Qwen P-PAS configuration uses:
 
-See all available options with:
+```text
+B_max = 2048
+B_cap = 768
+```
+
+### NVIDIA Nemotron-3.5-Lightning-30B-A3B-NVFP4
+
+```bash
+python benchmark.py \
+  --model nemotron_30b \
+  --prompt-tokens 20000 \
+  --output-tokens 32 \
+  --arrival-mode piecewise_poisson \
+  --phases 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1 \
+  --configs ppas_nemotron,1280,16384 \
+  --max-num-seqs 12
+```
+
+The Nemotron P-PAS configuration uses:
+
+```text
+B_max = 16384
+B_cap = 1280
+```
+
+The benchmark passes these settings to the modified scheduler through
+`PPAS_ENABLED` and `PPAS_B_CAP`. The current benchmark already contains the
+corresponding model entries and P-PAS presets. :contentReference[oaicite:0]{index=0} :contentReference[oaicite:1]{index=1}
+
+See all options with:
 
 ```bash
 python benchmark.py --help
 ```
 
-Use `run_sweep.py` to automate experiments across multiple models, request
-shapes, load regimes, and seeds:
-
-```bash
-python run_sweep.py --help
-```
-
 > **Benchmarking note:** For stable latency measurements, run the benchmark on
-> an otherwise idle GPU. If the benchmark GPU also drives the display,
-> GPU-accelerated desktop or browser activity can noticeably affect the
-> measured latencies.
+> an otherwise idle GPU. GPU-accelerated desktop or browser activity can
+> noticeably affect latency measurements when the benchmark GPU also drives
+> the display.
 
-## Aggregating the Paper Results
+## Paper Reproducibility
 
-The raw outputs from the experiments reported in the paper are included under
-`paper_results/`.
+The experiments reported in the original P-PAS paper were performed with
+**vLLM 0.22.1**.
 
-The reported metrics can be computed from these outputs using, for example:
+The original implementation, benchmark configuration, raw results, and
+profiling data are preserved in the corresponding paper release/tag.
 
-```bash
-python evaluate_results.py --input /path/to/ppas-vllm/paper_results/RTX5090/RTX5090_qwen_3b.txt
-```
-
-This aggregates the existing benchmark results without rerunning the GPU
-experiments.
-
-## Profiling
-
-### Nsight Systems
-
-Nsight Systems profiling is integrated into `benchmark.py`. Add `--profile`
-to run the vLLM server under Nsight Systems. For kernel-level analysis, we use
-deterministic arrivals and a sufficiently low request rate to isolate clean
-single-request execution; the exact rate depends on the model size.
-
-```bash
-python benchmark.py \
-  --model qwen_3b \
-  --prompt-tokens 25000 \
-  --output-tokens 32 \
-  --arrival-mode deterministic \
-  --request-rate 0.1 \
-  --configs 2048 \
-  --profile \
-  --profile-dir nsys_profiles
-```
-
-Nsight Systems traces are written to the directory specified by
-`--profile-dir` (default: `nsys_profiles/`).
-
-The generated trace can be opened with NVIDIA Nsight Systems.
-
-### Nsight Compute
-
-Nsight Compute profiling is performed by starting the vLLM server separately
-under `ncu` and then running the benchmark against the existing server:
-
-```bash
-python benchmark.py \
-  --model qwen_3b \
-  --prompt-tokens 25000 \
-  --output-tokens 32 \
-  --arrival-mode deterministic \
-  --request-rate 0.1 \
-  --configs 2048 \
-  --reuse-server \
-  --skip-warmup
-```
-
-A representative `ncu` invocation is:
-
-```bash
-ncu \
-  --target-processes all \
-  --kernel-name-base demangled \
-  --kernel-name 'regex:<kernel-name>' \
-  --launch-count 1 \
-  --section SpeedOfLight \
-  --section LaunchStats \
-  --section Occupancy \
-  --section MemoryWorkloadAnalysis \
-  --export profile \
-  vllm serve <model> \
-    --host 0.0.0.0 \
-    --port 8000 \
-    --no-enable-log-requests \
-    --max-num-batched-tokens 2048 \
-    --max-num-seqs 256
-```
-
-The target kernel name can first be identified from an Nsight Systems trace.
-Depending on the model and kernel launch order, `--launch-skip` may be required
-to select the intended kernel invocation.
-
-The Nsight Systems and Nsight Compute traces used for the paper are included
-under `paper_results/` and can be inspected directly without rerunning the
-profiling experiments.
+This branch tracks the newer **vLLM 0.27.1 implementation** and additional
+experiments with recent models.
 
 ## Citation
 
@@ -265,17 +174,16 @@ If you use P-PAS or this repository in your research, please cite:
 
 ```bibtex
 @misc{sämann2026ppasprefillpressureadaptivescheduling,
-      title={P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving}, 
+      title={P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving},
       author={Timo Sämann},
       year={2026},
       eprint={2608.15171},
       archivePrefix={arXiv},
       primaryClass={cs.DC},
-      url={https://arxiv.org/abs/2608.15171}, 
+      url={https://arxiv.org/abs/2608.15171},
 }
 ```
 
 ## License
 
-This repository is licensed under the Apache License 2.0. See
-`LICENSE` for details.
+This repository is licensed under the Apache License 2.0. See `LICENSE` for details.

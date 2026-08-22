@@ -19,10 +19,12 @@ MODELS = {
     "qwen_0.5b": "Qwen/Qwen2.5-0.5B-Instruct",
     "qwen_3b": "Qwen/Qwen2.5-3B-Instruct",
     "qwen_7b": "Qwen/Qwen2.5-7B-Instruct",
+    "qwen_27b": "unsloth/Qwen3.8-27B-NVFP4",
     "llama_1b": "meta-llama/Llama-3.2-1B-Instruct",
     "llama_3b": "meta-llama/Llama-3.2-3B-Instruct",
     "gemma_1b": "google/gemma-3-1b-it",
     "smollm3_3b": "HuggingFaceTB/SmolLM3-3B",
+    "nemotron_30b": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
 }
 
 
@@ -116,12 +118,10 @@ def parse_args() -> argparse.Namespace:
         default="2048,16384",
         help=(
             "Comma-separated server configurations. Supported values are "
-            "'default', integer MBT values such as '2048' or '16384', and "
-            "'ppas'. Examples: "
+            "'default', integer MBT values such as '2048' or '16384', "
+            "'ppas_qwen', and 'ppas_nemotron'. Examples: "
             "'--configs 2048,16384' or "
-            "'--configs 2048,16384,ppas'. "
-            "The ppas configuration starts the server with MBT 16384 and "
-            "requires the modified ppas scheduler.py."
+            "'--configs ppas_qwen,768,2048'."
         ),
     )
 
@@ -170,7 +170,9 @@ class ServerConfig:
     name: str
     max_num_batched_tokens: int | None
     max_num_seqs: int | None
+    max_num_scheduled_tokens: int | None = None
     ppas_enabled: bool = False
+    ppas_b_cap: int | None = None
 
 def parse_configs(
     value: str,
@@ -201,13 +203,26 @@ def parse_configs(
             )
             continue
 
-        if item == "ppas":
+        if item == "ppas_qwen":
             configs.append(
                 ServerConfig(
-                    name=f"ppas_16k_s{max_num_seqs}",
+                    name=f"ppas_2k_768_s{max_num_seqs}",
+                    max_num_batched_tokens=2048,
+                    max_num_seqs=max_num_seqs,
+                    ppas_enabled=True,
+                    ppas_b_cap=768,
+                )
+            )
+            continue
+
+        if item == "ppas_nemotron":
+            configs.append(
+                ServerConfig(
+                    name=f"ppas_16k_1280_s{max_num_seqs}",
                     max_num_batched_tokens=16384,
                     max_num_seqs=max_num_seqs,
                     ppas_enabled=True,
+                    ppas_b_cap=1280,
                 )
             )
             continue
@@ -217,7 +232,7 @@ def parse_configs(
         except ValueError as exc:
             raise ValueError(
                 f"Invalid configuration {raw_item!r}. "
-                "Expected 'default', 'ppas', or an integer MBT value."
+                "Expected 'default', 'ppas_qwen', 'ppas_nemotron', or an integer MBT value."
             ) from exc
 
         if mbt <= 0:
@@ -384,6 +399,10 @@ def start_vllm(
         "--host", "0.0.0.0",
         "--port", "8000",
         "--no-enable-log-requests",
+        "--max-model-len", "21000",
+        "--language-model-only",
+        "--skip-mm-profiling",
+        "--kv-cache-dtype", "fp8_e4m3",
     ]
 
     if config.max_num_batched_tokens is not None:
@@ -391,7 +410,11 @@ def start_vllm(
             "--max-num-batched-tokens",
             str(config.max_num_batched_tokens),
         ]
-
+    if config.max_num_scheduled_tokens is not None:
+        vllm_cmd += [
+            "--max-num-scheduled-tokens",
+            str(config.max_num_scheduled_tokens),
+        ]
     if config.max_num_seqs is not None:
         vllm_cmd += [
             "--max-num-seqs",
@@ -420,6 +443,11 @@ def start_vllm(
 
     env = os.environ.copy()
     env["PPAS_ENABLED"] = "1" if config.ppas_enabled else "0"
+
+    if config.ppas_b_cap is not None:
+        env["PPAS_B_CAP"] = str(config.ppas_b_cap)
+    else:
+        env.pop("PPAS_B_CAP", None)
 
     print(
         "START SERVER:",
@@ -889,10 +917,11 @@ async def main() -> None:
         print(
             f"  {config.name}: "
             f"max_num_batched_tokens={config.max_num_batched_tokens}, "
+            f"max_num_scheduled_tokens={config.max_num_scheduled_tokens}, "
             f"max_num_seqs={config.max_num_seqs}, "
-            f"ppas_enabled={config.ppas_enabled}"
+            f"ppas_enabled={config.ppas_enabled}, "
+            f"ppas_b_cap={config.ppas_b_cap}"
         )
-
     requests = sample_trace(
         args=args,
         phases=phases,

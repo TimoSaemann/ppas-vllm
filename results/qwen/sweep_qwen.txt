@@ -1,0 +1,795 @@
+/home/timo/miniconda3/envs/qwen38-test/bin/python /home/timo/PycharmProjects/ppas-vllm/run_sweep.py --configs ppas,768,2048 --seeds 0,1,2,3,4 --phases 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1 --models qwen_27b --prompt-lengths 20000 --max-num-seqs 12 
+SWEEP CONFIGURATION
+  models          : ['qwen_27b']
+  prompt lengths  : [20000]
+  output lengths  : [32]
+  seeds           : [0, 1, 2, 3, 4]
+  configs         : ppas,768,2048
+  max num seqs    : 12
+  arrival mode    : piecewise_poisson
+  phases          : ['10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1']
+
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p2_10-0p1_10-0p2_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 6
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 6, 'request_rate': 0.12, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 1, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 3.784482864837628, 'p95_latency': 5.1151521889842115, 'avg_ttft': 2.5173607713271244, 'p95_ttft': 2.8263146609970136, 'avg_tpot': 0.04087490624227431, 'p95_tpot': 0.08488809153993404, 'makespan': 34.65632578602526, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 6, 'request_rate': 0.12, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 1, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 3.9153881514794193, 'p95_latency': 5.101651240227511, 'avg_ttft': 2.754039354486546, 'p95_ttft': 3.168890825501876, 'avg_tpot': 0.03746286441912494, 'p95_tpot': 0.0784317109604261, 'makespan': 34.82845460198587, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 6, 'request_rate': 0.12, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 1, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 4.21582977133221, 'p95_latency': 7.546056725477683, 'avg_ttft': 3.3021999586586994, 'p95_ttft': 6.475627669977257, 'avg_tpot': 0.029471929441080978, 'p95_tpot': 0.06711855970112787, 'makespan': 34.638375025009736, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p4_10-0p1_10-0p4_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 9
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 9, 'request_rate': 0.18, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 6.497777719115321, 'p95_latency': 10.4295873939991, 'avg_ttft': 4.207609091109286, 'p95_ttft': 6.971175346779637, 'avg_tpot': 0.0738764073550334, 'p95_tpot': 0.12695264415515045, 'makespan': 29.9557768710074, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 9, 'request_rate': 0.18, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 6.562960210437369, 'p95_latency': 9.91368311420083, 'avg_ttft': 4.4885087355505675, 'p95_ttft': 7.182117049209773, 'avg_tpot': 0.06691778951247747, 'p95_tpot': 0.09527975120018387, 'makespan': 30.346457212988753, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 9, 'request_rate': 0.18, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 7.632193431426357, 'p95_latency': 11.525669022975489, 'avg_ttft': 3.9305553552047865, 'p95_ttft': 6.250542779173702, 'avg_tpot': 0.11940767987811518, 'p95_tpot': 0.23606091509723376, 'makespan': 29.94797712797299, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p6_10-0p1_10-0p6_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 13
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 9.666951551549854, 'p95_latency': 14.56001204639906, 'avg_ttft': 6.562322017700913, 'p95_ttft': 10.011217884614595, 'avg_tpot': 0.10014933980157871, 'p95_tpot': 0.13997642655458836, 'makespan': 33.28696811001282, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 9.649808236921672, 'p95_latency': 13.163041969796174, 'avg_ttft': 6.901239520068675, 'p95_ttft': 10.273464663210323, 'avg_tpot': 0.08866350699525798, 'p95_tpot': 0.09578013605130235, 'makespan': 33.91081029898487, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 11.419845582930765, 'p95_latency': 15.339643813192378, 'avg_ttft': 5.5273997785496665, 'p95_ttft': 8.950699581799562, 'avg_tpot': 0.1900788969155193, 'p95_tpot': 0.23817922238020167, 'makespan': 31.314842882973608, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p8_10-0p1_10-0p8_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 14
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 12.620129432362903, 'p95_latency': 18.119454783736728, 'avg_ttft': 9.790080407725847, 'p95_ttft': 15.14465313499677, 'avg_tpot': 0.09129190402055022, 'p95_tpot': 0.10485366622019829, 'makespan': 36.23375192802632, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 12.736543467505337, 'p95_latency': 18.289061344548827, 'avg_ttft': 9.971180145566384, 'p95_ttft': 15.314715383693692, 'avg_tpot': 0.08920526844964359, 'p95_tpot': 0.09601335733032394, 'makespan': 36.53281923697796, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 14.801358351130537, 'p95_latency': 21.07389924364397, 'avg_ttft': 8.451156181915264, 'p95_ttft': 13.644280804286245, 'avg_tpot': 0.2048452312650088, 'p95_tpot': 0.24008759361252396, 'makespan': 33.594326806021854, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 17
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 17, 'request_rate': 0.34, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 14.6704550412867, 'p95_latency': 20.58438119541388, 'avg_ttft': 11.804370846760268, 'p95_ttft': 17.594662438426166, 'avg_tpot': 0.09245432885569137, 'p95_tpot': 0.10139208700575474, 'makespan': 44.00237324601039, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 17, 'request_rate': 0.34, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 14.76643829335979, 'p95_latency': 20.649857431009877, 'avg_ttft': 11.957923468582415, 'p95_ttft': 17.67400031357538, 'avg_tpot': 0.09059725241217342, 'p95_tpot': 0.0962760335551725, 'makespan': 44.274854742048774, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 17, 'request_rate': 0.34, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 16.722076407120124, 'p95_latency': 23.191768927616067, 'avg_ttft': 10.15600589382024, 'p95_ttft': 15.771971687383484, 'avg_tpot': 0.21180872623548017, 'p95_tpot': 0.24093743238763343, 'makespan': 40.778808243980166, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p2_10-0p1_10-0p2_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 8
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 8, 'request_rate': 0.16, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 4.847103353007697, 'p95_latency': 7.3109908421087315, 'avg_ttft': 3.340465713881713, 'p95_ttft': 5.937927578506059, 'avg_tpot': 0.04860121416535431, 'p95_tpot': 0.10758731594570205, 'makespan': 47.24252922198502, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 8, 'request_rate': 0.16, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 5.098108281366876, 'p95_latency': 8.224256318859988, 'avg_ttft': 3.5915515808665077, 'p95_ttft': 6.246384321257937, 'avg_tpot': 0.048598603241947376, 'p95_tpot': 0.09080901809690159, 'makespan': 47.45220219902694, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 8, 'request_rate': 0.16, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 4.90569200826576, 'p95_latency': 7.190481359761907, 'avg_ttft': 3.2800103295230656, 'p95_ttft': 5.69987250517588, 'avg_tpot': 0.05244134447557078, 'p95_tpot': 0.12996381446578342, 'makespan': 47.211712529009674, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p4_10-0p1_10-0p4_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 11
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 6.561955411257011, 'p95_latency': 9.172350514971185, 'avg_ttft': 3.7890761422617785, 'p95_ttft': 5.49972416748642, 'avg_tpot': 0.08944771835468492, 'p95_tpot': 0.17699713896745967, 'makespan': 44.063674209988676, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 6.442416879814118, 'p95_latency': 8.040146418992663, 'avg_ttft': 4.202551957272755, 'p95_ttft': 6.043455039500259, 'avg_tpot': 0.07225370717875365, 'p95_tpot': 0.0955476320635963, 'makespan': 44.8467534519732, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 7.350453241992827, 'p95_latency': 9.654163994506234, 'avg_ttft': 3.6729856479055756, 'p95_ttft': 5.127585589507362, 'avg_tpot': 0.11862798690604034, 'p95_tpot': 0.22318698796762843, 'makespan': 43.894514435960446, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p6_10-0p1_10-0p6_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 18
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 11.28679300832381, 'p95_latency': 15.729735177606926, 'avg_ttft': 8.550308799432564, 'p95_ttft': 13.008586080526584, 'avg_tpot': 0.08827368415778213, 'p95_tpot': 0.10057300645867434, 'makespan': 54.96405637299176, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 11.454374208829702, 'p95_latency': 15.808235496407724, 'avg_ttft': 8.768182369831871, 'p95_ttft': 13.144022849362226, 'avg_tpot': 0.0866513496450913, 'p95_tpot': 0.09625090719895407, 'makespan': 55.31863934802823, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 13.622264592154856, 'p95_latency': 17.961554823417096, 'avg_ttft': 7.335791238273184, 'p95_ttft': 10.524998245897583, 'avg_tpot': 0.20278946302844109, 'p95_tpot': 0.24207845115621063, 'makespan': 52.18800222297432, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p8_10-0p1_10-0p8_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 18
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 12.682616100766204, 'p95_latency': 18.07985915734898, 'avg_ttft': 9.934291940224487, 'p95_ttft': 15.533846544701372, 'avg_tpot': 0.0886556180819909, 'p95_tpot': 0.10162552057384254, 'makespan': 54.45358288299758, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 12.753619445953518, 'p95_latency': 18.20415013906895, 'avg_ttft': 10.072058470677197, 'p95_ttft': 15.621528359409421, 'avg_tpot': 0.08650196694439748, 'p95_tpot': 0.09633714213465985, 'makespan': 54.67836159601575, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 14.618976642500558, 'p95_latency': 21.112127596247593, 'avg_ttft': 8.368152326829861, 'p95_ttft': 13.65694543592108, 'avg_tpot': 0.20163949405389345, 'p95_tpot': 0.2411852811588981, 'makespan': 51.24563731002854, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 25
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 19.130706673278475, 'p95_latency': 30.402696931385428, 'avg_ttft': 16.312693566719535, 'p95_ttft': 27.56473166457144, 'avg_tpot': 0.0909036485986754, 'p95_tpot': 0.09701177926448684, 'makespan': 72.33274876500946, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 19.17517539202934, 'p95_latency': 30.237489509198344, 'avg_ttft': 16.40220658658771, 'p95_ttft': 27.4675474971882, 'avg_tpot': 0.08945060662714945, 'p95_tpot': 0.09647802547664351, 'makespan': 72.45724881696515, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 20.69630712171551, 'p95_latency': 28.406250281166283, 'avg_ttft': 14.07900496315444, 'p95_ttft': 23.111314329609737, 'avg_tpot': 0.2134613599535829, 'p95_tpot': 0.2428722280839969, 'makespan': 67.74986405600794, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p2_10-0p1_10-0p2_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 4
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 4, 'request_rate': 0.08, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 3.8852369520027423, 'p95_latency': 5.037282463005977, 'avg_ttft': 2.783833447494544, 'p95_ttft': 3.6521028645889597, 'avg_tpot': 0.035529145306716074, 'p95_tpot': 0.0750832196648961, 'makespan': 26.039857130032033, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 4, 'request_rate': 0.08, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 4.114140908248373, 'p95_latency': 5.192150866053998, 'avg_ttft': 3.045116142995539, 'p95_ttft': 4.0485137801413655, 'avg_tpot': 0.034484669846865615, 'p95_tpot': 0.07233604071483449, 'makespan': 26.24362837499939, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 4, 'request_rate': 0.08, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 3.876872367996839, 'p95_latency': 5.028783377225045, 'avg_ttft': 2.779302837254363, 'p95_ttft': 3.6454438619635763, 'avg_tpot': 0.03540546873362825, 'p95_tpot': 0.07467597187599992, 'makespan': 26.03182046400616, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p4_10-0p1_10-0p4_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 9
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 9, 'request_rate': 0.18, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 6.641632098452344, 'p95_latency': 9.219784042611717, 'avg_ttft': 3.8298012310082816, 'p95_ttft': 6.087108307809102, 'avg_tpot': 0.0907042215304536, 'p95_tpot': 0.1654519356261458, 'makespan': 32.94059724599356, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 9, 'request_rate': 0.18, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 6.278488440561988, 'p95_latency': 7.817486178013496, 'avg_ttft': 4.197123375113329, 'p95_ttft': 6.439552840590476, 'avg_tpot': 0.06714080856285996, 'p95_tpot': 0.09554989686453595, 'makespan': 33.14364486304112, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 9, 'request_rate': 0.18, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 7.142625077452976, 'p95_latency': 10.440486745827366, 'avg_ttft': 3.7305615664485634, 'p95_ttft': 5.892230527999344, 'avg_tpot': 0.11006656487111009, 'p95_tpot': 0.23111289715499528, 'makespan': 32.94626083999174, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p6_10-0p1_10-0p6_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 12
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 9.097626598081357, 'p95_latency': 13.45666295760602, 'avg_ttft': 6.403562942417921, 'p95_ttft': 11.242113078036345, 'avg_tpot': 0.08690527921494957, 'p95_tpot': 0.11903262975233261, 'makespan': 36.341089820023626, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 9.16535163167282, 'p95_latency': 13.240597746084676, 'avg_ttft': 6.663815781585678, 'p95_ttft': 11.551340140707907, 'avg_tpot': 0.0806947048415207, 'p95_tpot': 0.09567803452063668, 'makespan': 36.78305873897625, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 10.902448086994506, 'p95_latency': 13.589919081897824, 'avg_ttft': 5.954768710585388, 'p95_ttft': 10.041918730933684, 'avg_tpot': 0.15960256052932636, 'p95_tpot': 0.23870676437265148, 'makespan': 35.11757524998393, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p8_10-0p1_10-0p8_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 14
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 10.119432064708755, 'p95_latency': 14.313452286925166, 'avg_ttft': 7.405815880354827, 'p95_ttft': 11.509173172962619, 'avg_tpot': 0.0875360059469009, 'p95_tpot': 0.1126033866345214, 'makespan': 37.185217098973226, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 10.233579392420195, 'p95_latency': 14.433168302697595, 'avg_ttft': 7.634321093575896, 'p95_ttft': 11.68438552088046, 'avg_tpot': 0.08384704189820318, 'p95_tpot': 0.09595166207845097, 'makespan': 37.38299895398086, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 12.18500689099892, 'p95_latency': 16.90332436429744, 'avg_ttft': 6.320049341855338, 'p95_ttft': 9.660320668620988, 'avg_tpot': 0.1891921790046317, 'p95_tpot': 0.23962066653240924, 'makespan': 37.14452552201692, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 18
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 12.858657981281997, 'p95_latency': 19.604156731435797, 'avg_ttft': 9.959042279392532, 'p95_ttft': 16.619800632155965, 'avg_tpot': 0.0935359903835311, 'p95_tpot': 0.10832856646795275, 'makespan': 46.6988306689891, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 12.951289079666216, 'p95_latency': 19.710105975650368, 'avg_ttft': 10.131688094882216, 'p95_ttft': 16.733462995063746, 'avg_tpot': 0.09095487047690318, 'p95_tpot': 0.09649547555722342, 'makespan': 47.01476226199884, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 14.158846608495676, 'p95_latency': 22.265657933228066, 'avg_ttft': 8.312938197991267, 'p95_ttft': 14.822211130961659, 'avg_tpot': 0.18857769066143254, 'p95_tpot': 0.2405556383754893, 'makespan': 43.86641461000545, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p2_10-0p1_10-0p2_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 8
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 8, 'request_rate': 0.16, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 3.9396821172485943, 'p95_latency': 5.213955880465801, 'avg_ttft': 2.8305624456261285, 'p95_ttft': 4.19055232576793, 'avg_tpot': 0.03577805392330535, 'p95_tpot': 0.08576379801388906, 'makespan': 46.62794658500934, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 8, 'request_rate': 0.16, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 4.15257056763221, 'p95_latency': 5.501400975923752, 'avg_ttft': 3.0794343957459205, 'p95_ttft': 4.599864233372499, 'avg_tpot': 0.034617295867299676, 'p95_tpot': 0.08220540629530836, 'makespan': 46.843356342986226, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 8, 'request_rate': 0.16, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 3.9337005848574336, 'p95_latency': 5.199844168074196, 'avg_ttft': 2.824645306871389, 'p95_ttft': 4.182224776150542, 'avg_tpot': 0.03577597670922724, 'p95_tpot': 0.08568937057242428, 'makespan': 46.623769909958355, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p4_10-0p1_10-0p4_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 12
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 5.757432701842238, 'p95_latency': 12.120236879854929, 'avg_ttft': 3.200967374495425, 'p95_ttft': 6.178726343487504, 'avg_tpot': 0.08246662346280044, 'p95_tpot': 0.18519006415069353, 'makespan': 41.91576157399686, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 5.551995152578456, 'p95_latency': 9.49196379376226, 'avg_ttft': 3.6009862201705496, 'p95_ttft': 6.533129316780831, 'avg_tpot': 0.06293577201315828, 'p95_tpot': 0.09563761009682616, 'makespan': 42.16434944898356, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 6.124002494834713, 'p95_latency': 10.158344579054392, 'avg_ttft': 3.090693462504229, 'p95_ttft': 5.7458027760119865, 'avg_tpot': 0.09784867846227366, 'p95_tpot': 0.21262076408057773, 'makespan': 41.93654384399997, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p6_10-0p1_10-0p6_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 16
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 16, 'request_rate': 0.32, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 10.013030654627073, 'p95_latency': 14.55762666426017, 'avg_ttft': 7.24664994381601, 'p95_ttft': 11.45318224625953, 'avg_tpot': 0.08923808744551817, 'p95_tpot': 0.1170883079194614, 'makespan': 46.78169400902698, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 16, 'request_rate': 0.32, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 10.17830649186726, 'p95_latency': 14.719915672758361, 'avg_ttft': 7.528827046313381, 'p95_ttft': 11.73413954701391, 'avg_tpot': 0.08546707888883483, 'p95_tpot': 0.09631982262926025, 'makespan': 47.24797544698231, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 16, 'request_rate': 0.32, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 12.663840484794491, 'p95_latency': 17.848934002482565, 'avg_ttft': 6.410849109935953, 'p95_ttft': 10.392873429256724, 'avg_tpot': 0.20170939918898512, 'p95_tpot': 0.24082008106380537, 'makespan': 44.233782596944366, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p8_10-0p1_10-0p8_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 18
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 11.534201087617678, 'p95_latency': 16.175477694632715, 'avg_ttft': 8.785133724948132, 'p95_ttft': 13.623915174213469, 'avg_tpot': 0.08867959234417887, 'p95_tpot': 0.10111890913723333, 'makespan': 51.93327101704199, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 11.660607985560395, 'p95_latency': 16.243586746024082, 'avg_ttft': 8.968280145393996, 'p95_ttft': 13.947420945786869, 'avg_tpot': 0.08684928516665805, 'p95_tpot': 0.09670101258896231, 'makespan': 52.265843330998905, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 13.486495212612985, 'p95_latency': 19.293477314364278, 'avg_ttft': 7.235249887391951, 'p95_ttft': 11.866848540157658, 'avg_tpot': 0.20165307500713012, 'p95_tpot': 0.24195308576679728, 'makespan': 48.73519836802734, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 22
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 14.121963291590378, 'p95_latency': 21.718824275274528, 'avg_ttft': 11.328792355994334, 'p95_ttft': 19.8570194678643, 'avg_tpot': 0.09010228824503365, 'p95_tpot': 0.09725819103449823, 'makespan': 62.278015044052154, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 14.195959201135503, 'p95_latency': 21.737474173266673, 'avg_ttft': 11.446499198410576, 'p95_ttft': 19.876000106375432, 'avg_tpot': 0.08869225815241703, 'p95_tpot': 0.09671098720385589, 'makespan': 62.477057673968375, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 15.869316386588087, 'p95_latency': 22.187119025291757, 'avg_ttft': 9.382815406633943, 'p95_ttft': 16.11256679302314, 'avg_tpot': 0.20924196709529497, 'p95_tpot': 0.24273482859472653, 'makespan': 58.277959271974396, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p2_10-0p1_10-0p2_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.2,10:0.1,10:0.2,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 11
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 1, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 5.670612302804577, 'p95_latency': 7.617341373988893, 'avg_ttft': 3.235190015810076, 'p95_ttft': 4.433593728987034, 'avg_tpot': 0.07856200925788713, 'p95_tpot': 0.15518112427408565, 'makespan': 50.927038845955394, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 1, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 5.512992534368426, 'p95_latency': 6.850239846011391, 'avg_ttft': 3.557684153455987, 'p95_ttft': 4.827832801500335, 'avg_tpot': 0.06307446390040126, 'p95_tpot': 0.09581854143517933, 'makespan': 51.42642390000401, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.2,10:0.1,10:0.2,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 1, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 5.845109592456455, 'p95_latency': 8.595173440029612, 'avg_ttft': 3.1636211855432275, 'p95_ttft': 4.123792214028072, 'avg_tpot': 0.08649962602945897, 'p95_tpot': 0.18927959282319212, 'makespan': 50.591342265950516, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p4_10-0p1_10-0p4_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.4,10:0.1,10:0.4,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 12
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 7.060102799679346, 'p95_latency': 11.720207785794628, 'avg_ttft': 4.74461493101262, 'p95_ttft': 10.015955988358472, 'avg_tpot': 0.07469315705376536, 'p95_tpot': 0.13064966934560346, 'makespan': 43.55409580102423, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 7.099484750743916, 'p95_latency': 11.999524040607502, 'avg_ttft': 5.02605933182834, 'p95_ttft': 10.320478525501674, 'avg_tpot': 0.06688469093276052, 'p95_tpot': 0.09592879954500183, 'makespan': 43.97186441696249, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.4,10:0.1,10:0.4,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 12, 'request_rate': 0.24, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 7.975092498910574, 'p95_latency': 11.312044050227268, 'avg_ttft': 4.507440210751763, 'p95_ttft': 9.145816185284637, 'avg_tpot': 0.11185975123092944, 'p95_tpot': 0.23821832522329303, 'makespan': 42.71059916098602, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p6_10-0p1_10-0p6_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.6,10:0.1,10:0.6,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 14
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 7.3119058800678305, 'p95_latency': 11.198632744138012, 'avg_ttft': 4.610782474491446, 'p95_ttft': 8.146054676760103, 'avg_tpot': 0.08713301308310917, 'p95_tpot': 0.1706506154734656, 'makespan': 43.53609795297962, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 7.156388409003349, 'p95_latency': 11.080296214824193, 'avg_ttft': 4.9450128819361066, 'p95_ttft': 8.336490772714022, 'avg_tpot': 0.07133469442152397, 'p95_tpot': 0.0967463748290151, 'makespan': 43.92370161198778, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.6,10:0.1,10:0.6,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 8.395187705572296, 'p95_latency': 13.6172705673991, 'avg_ttft': 4.393804113434661, 'p95_ttft': 7.509206778818042, 'avg_tpot': 0.12907689006895595, 'p95_tpot': 0.23967169784028233, 'makespan': 42.67799739702605, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-0p8_10-0p1_10-0p8_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.8,10:0.1,10:0.8,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 20
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 20, 'request_rate': 0.4, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 11.613337227591547, 'p95_latency': 17.975134953515955, 'avg_ttft': 8.834378861042206, 'p95_ttft': 15.171795412345093, 'avg_tpot': 0.0896438182757852, 'p95_tpot': 0.10499594728471788, 'makespan': 52.8622469480033, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 20, 'request_rate': 0.4, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 13.582316973150592, 'p95_latency': 19.942759284208297, 'avg_ttft': 10.859000995595125, 'p95_ttft': 17.2969513274933, 'avg_tpot': 0.08784890250178926, 'p95_tpot': 0.0968843382064088, 'makespan': 54.97252644499531, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.8,10:0.1,10:0.8,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 20, 'request_rate': 0.4, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 13.535475092646085, 'p95_latency': 20.717461241493584, 'avg_ttft': 7.37974880579568, 'p95_ttft': 13.20672030161659, 'avg_tpot': 0.19857181570485175, 'p95_tpot': 0.2425433218477279, 'makespan': 49.631166631006636, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-qwen_27b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model qwen_27b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas,768,2048 --max-num-seqs 12 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_2k_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=True
+  mbt_768_s12: max_num_batched_tokens=768, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+  mbt_2048_s12: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=12, ppas_enabled=False
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 22
+================================================================================
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_2k_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 14.712347856915915, 'p95_latency': 22.831565863537254, 'avg_ttft': 11.932801287552468, 'p95_ttft': 19.793758029106538, 'avg_tpot': 0.08966279256011118, 'p95_tpot': 0.09712514593472493, 'makespan': 58.098284999025054, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 768 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_768_s12', 'max_num_batched_tokens': 768, 'max_num_seqs': 12, 'avg_latency': 14.838334977952234, 'p95_latency': 22.496802161005327, 'avg_ttft': 12.107216671863254, 'p95_ttft': 19.85422530142241, 'avg_tpot': 0.08810059051899939, 'p95_tpot': 0.09679005401332923, 'makespan': 58.36523286101874, 'failed': 0, 'error': ''}
+START SERVER: vllm serve unsloth/Qwen3.8-27B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 12 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s12', 'max_num_batched_tokens': 2048, 'max_num_seqs': 12, 'avg_latency': 16.51485017445785, 'p95_latency': 24.712919016671364, 'avg_ttft': 10.239978675320428, 'p95_ttft': 17.259999977675033, 'avg_tpot': 0.2024152096495943, 'p95_tpot': 0.24254584749174798, 'makespan': 54.39433133602142, 'failed': 0, 'error': ''}
+
+====================================================================================================
+SWEEP COMPLETE
+Successful experiments: 25
+Failed experiments    : 0
+====================================================================================================
+
+Process finished with exit code 0
+

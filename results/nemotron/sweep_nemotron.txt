@@ -1,0 +1,740 @@
+/home/timo/miniconda3/envs/qwen38-test/bin/python /home/timo/PycharmProjects/ppas-vllm/run_sweep.py --configs ppas_nemotron,1280,2048,16384 --seeds 0,1,2,3,4 --models nemotron_30b --prompt-lengths 20000 --arrival-mode piecewise_poisson --phases 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1 
+SWEEP CONFIGURATION
+  models          : ['nemotron_30b']
+  prompt lengths  : [20000]
+  output lengths  : [32]
+  seeds           : [0, 1, 2, 3, 4]
+  configs         : ppas_nemotron,1280,2048,16384
+  max num seqs    : 256
+  arrival mode    : piecewise_poisson
+  phases          : ['10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1']
+
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-0p5_10-0p1_10-0p5_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 11
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.1146539319941604, 'p95_latency': 1.7285291950101964, 'avg_ttft': 0.8935287463775073, 'p95_ttft': 1.0106964744918514, 'avg_tpot': 0.007133070503763002, 'p95_tpot': 0.027609273225196726, 'makespan': 37.7351526870043, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 1.2119101744452068, 'p95_latency': 1.8683017500152346, 'avg_ttft': 0.9950169304502197, 'p95_ttft': 1.1974929819989484, 'avg_tpot': 0.006996556257902811, 'p95_tpot': 0.026746607032574473, 'makespan': 37.81398286897456, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 1.174622273813425, 'p95_latency': 1.834531443513697, 'avg_ttft': 0.961131506906399, 'p95_ttft': 1.1506885139970109, 'avg_tpot': 0.006886798932484715, 'p95_tpot': 0.02634460321015438, 'makespan': 37.75366731395479, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.112093734009911, 'p95_latency': 1.726855239510769, 'avg_ttft': 0.8913485406400551, 'p95_ttft': 1.0101759704994038, 'avg_tpot': 0.007120812689350191, 'p95_tpot': 0.027549816241991078, 'makespan': 37.729483956994954, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 17
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 17, 'request_rate': 0.34, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.5302922684076132, 'p95_latency': 4.738142081373371, 'avg_ttft': 1.2864829827004167, 'p95_ttft': 2.018076592602301, 'avg_tpot': 0.040122880184103114, 'p95_tpot': 0.11615343883768803, 'makespan': 33.22128870699089, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 17, 'request_rate': 0.34, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 2.2518238725229716, 'p95_latency': 3.7626611941726877, 'avg_ttft': 1.4340384732349776, 'p95_ttft': 2.295760909561068, 'avg_tpot': 0.026380174170580445, 'p95_tpot': 0.05406981289026237, 'makespan': 33.28179056500085, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 17, 'request_rate': 0.34, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 2.224623106289929, 'p95_latency': 4.467136292182838, 'avg_ttft': 1.4354589042349664, 'p95_ttft': 2.696700150391549, 'avg_tpot': 0.02545690974370847, 'p95_tpot': 0.07738914681981587, 'makespan': 33.251040794013534, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 17, 'request_rate': 0.34, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.966740451814771, 'p95_latency': 6.693341103207786, 'avg_ttft': 1.2789780598763816, 'p95_ttft': 2.0305902618099934, 'avg_tpot': 0.05444394812704483, 'p95_tpot': 0.18102988307063858, 'makespan': 33.221142572001554, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p5_10-0p1_10-1p5_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 27
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 3.7538735554855385, 'p95_latency': 5.772192866209662, 'avg_ttft': 2.4506394561785445, 'p95_ttft': 4.3656657993153205, 'avg_tpot': 0.04203980965506432, 'p95_tpot': 0.055319309572035805, 'makespan': 36.47677409503376, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 3.837983676294917, 'p95_latency': 5.859610395110212, 'avg_ttft': 2.5550111795202137, 'p95_ttft': 4.459745936538092, 'avg_tpot': 0.04138620957337751, 'p95_tpot': 0.05535648918462797, 'makespan': 36.5525838949834, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 4.143546732707398, 'p95_latency': 6.272324811213184, 'avg_ttft': 2.3618870559644334, 'p95_ttft': 3.9798971364216413, 'avg_tpot': 0.05747289279816013, 'p95_tpot': 0.08282510462900504, 'makespan': 36.49405067000771, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 27, 'request_rate': 0.54, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 5.930892188705642, 'p95_latency': 11.397453618026338, 'avg_ttft': 2.3049717537877665, 'p95_ttft': 3.7523363287968095, 'avg_tpot': 0.11696517531993146, 'p95_tpot': 0.30580763189767995, 'makespan': 36.497099869011436, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-2p0_10-0p1_10-2p0_10-0p1_seed0
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 34
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 34, 'request_rate': 0.68, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 4.982913198206327, 'p95_latency': 7.773640021626488, 'avg_ttft': 3.5092163058220383, 'p95_ttft': 6.4765579146886, 'avg_tpot': 0.04753860943175126, 'p95_tpot': 0.054499952640335615, 'makespan': 33.98092079098569, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 34, 'request_rate': 0.68, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 5.077238675527042, 'p95_latency': 7.893115491082425, 'avg_ttft': 3.618951004176565, 'p95_ttft': 6.577338313037762, 'avg_tpot': 0.04704153778549925, 'p95_tpot': 0.054463578195352434, 'makespan': 34.1744401580072, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 34, 'request_rate': 0.68, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 5.450413370998028, 'p95_latency': 8.198972633070662, 'avg_ttft': 3.329446171533645, 'p95_ttft': 6.0193589071102895, 'avg_tpot': 0.06841829675691559, 'p95_tpot': 0.08317843666159352, 'makespan': 33.64489332999801, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'num_requests': 34, 'request_rate': 0.68, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 8.602060352708898, 'p95_latency': 13.010478148801484, 'avg_ttft': 3.227275578036343, 'p95_ttft': 5.62954499622283, 'avg_tpot': 0.17338015402169532, 'p95_tpot': 0.35554841414803723, 'makespan': 33.14978373097256, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-0p5_10-0p1_10-0p5_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 14
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.4547811240731139, 'p95_latency': 2.546933143044589, 'avg_ttft': 1.0737115996432425, 'p95_ttft': 1.5100431014492641, 'avg_tpot': 0.012292565304189405, 'p95_tpot': 0.0311815483709647, 'makespan': 38.04297296301229, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 1.5348873313591216, 'p95_latency': 2.670474105401081, 'avg_ttft': 1.1285217045141118, 'p95_ttft': 1.630769189255079, 'avg_tpot': 0.013108568607903544, 'p95_tpot': 0.03598975940098639, 'makespan': 38.141720420040656, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 1.4913887335652751, 'p95_latency': 2.5925948641903234, 'avg_ttft': 1.089623981708428, 'p95_ttft': 1.5337274528254055, 'avg_tpot': 0.01296015328570475, 'p95_tpot': 0.03525039331420444, 'makespan': 38.11552354804007, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 14, 'request_rate': 0.28, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.4496210732114767, 'p95_latency': 2.540690339030698, 'avg_ttft': 1.0697439418623358, 'p95_ttft': 1.5025387671921635, 'avg_tpot': 0.012254101011262614, 'p95_tpot': 0.031226714781669506, 'makespan': 38.03732712799683, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 25
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.725597192035057, 'p95_latency': 4.620231145608702, 'avg_ttft': 1.4558478921931237, 'p95_ttft': 2.5421687151771035, 'avg_tpot': 0.04095965483361074, 'p95_tpot': 0.10184419761269142, 'makespan': 48.08481507602846, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 2.662648991763126, 'p95_latency': 3.6223292445763944, 'avg_ttft': 1.5993057124130428, 'p95_ttft': 2.6860376138007265, 'avg_tpot': 0.034301396108067206, 'p95_tpot': 0.05454131230193701, 'makespan': 48.143771458999254, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 2.684098018880468, 'p95_latency': 4.0799715840257695, 'avg_ttft': 1.485658672680147, 'p95_ttft': 2.5554945698007936, 'avg_tpot': 0.038659333748397445, 'p95_tpot': 0.081619449851719, 'makespan': 48.078563803981524, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 3.048828738720622, 'p95_latency': 6.364897161407861, 'avg_ttft': 1.8066982822399587, 'p95_ttft': 2.6040630373754534, 'avg_tpot': 0.04006872440260204, 'p95_tpot': 0.13518980535445732, 'makespan': 48.06361847399967, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p5_10-0p1_10-1p5_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 40
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 40, 'request_rate': 0.8, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 5.912988038279582, 'p95_latency': 10.054141848612925, 'avg_ttft': 4.44501340805291, 'p95_ttft': 8.368901728049968, 'avg_tpot': 0.04735402032989265, 'p95_tpot': 0.054574706922510575, 'makespan': 45.9158252220368, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 40, 'request_rate': 0.8, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 6.005183162397588, 'p95_latency': 10.12295956716116, 'avg_ttft': 4.531493752301321, 'p95_ttft': 8.43445049415459, 'avg_tpot': 0.047538368067621524, 'p95_tpot': 0.05463886599379381, 'makespan': 46.06311900401488, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 40, 'request_rate': 0.8, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 6.312120208250417, 'p95_latency': 10.512718183654943, 'avg_ttft': 4.1558890146247, 'p95_ttft': 7.9452649494312935, 'avg_tpot': 0.0695558449556683, 'p95_tpot': 0.08282668217331277, 'makespan': 45.31203552900115, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 40, 'request_rate': 0.8, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 10.174138660055178, 'p95_latency': 14.430479665193706, 'avg_ttft': 4.038113064802019, 'p95_ttft': 7.817814808135154, 'avg_tpot': 0.19793630952429545, 'p95_tpot': 0.4125048429734306, 'makespan': 44.83579869399546, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-2p0_10-0p1_10-2p0_10-0p1_seed1
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 44
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 44, 'request_rate': 0.88, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.84336100936608, 'p95_latency': 10.01885123718821, 'avg_ttft': 5.31463971411259, 'p95_ttft': 8.452008666141774, 'avg_tpot': 0.049313590169467424, 'p95_tpot': 0.054783721109138685, 'makespan': 46.53877042001113, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 44, 'request_rate': 0.88, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 6.898205920985095, 'p95_latency': 10.108914440570516, 'avg_ttft': 5.364255260050413, 'p95_ttft': 8.507337963447208, 'avg_tpot': 0.04948227938498975, 'p95_tpot': 0.054711033213008645, 'makespan': 46.63618888799101, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 44, 'request_rate': 0.88, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 7.217690034201951, 'p95_latency': 9.916081661375937, 'avg_ttft': 4.958614913184482, 'p95_ttft': 7.878027832155931, 'avg_tpot': 0.07287339100056353, 'p95_tpot': 0.08317729289410636, 'makespan': 45.85719379800139, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'num_requests': 44, 'request_rate': 0.88, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 12.051155814228961, 'p95_latency': 16.355480956853718, 'avg_ttft': 4.789158502385941, 'p95_ttft': 7.467358843178954, 'avg_tpot': 0.2342579778013877, 'p95_tpot': 0.46246617214374935, 'makespan': 45.16495768399909, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-0p5_10-0p1_10-0p5_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 11
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.6262430897331797, 'p95_latency': 2.5418274849944282, 'avg_ttft': 1.1171974220884626, 'p95_ttft': 1.9498664320271928, 'avg_tpot': 0.016420827988539263, 'p95_tpot': 0.05315396872596935, 'makespan': 23.695490617014002, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 1.8665922811011446, 'p95_latency': 2.8925682439876255, 'avg_ttft': 1.2233255989161658, 'p95_ttft': 2.0448620450042654, 'avg_tpot': 0.020750538134999313, 'p95_tpot': 0.053046149660780605, 'makespan': 23.854949542030226, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 1.7580863839142362, 'p95_latency': 2.6246432589832693, 'avg_ttft': 1.1556359722744673, 'p95_ttft': 1.9463294424931519, 'avg_tpot': 0.01943388424644416, 'p95_tpot': 0.05159418956440453, 'makespan': 23.735800552007277, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.615136165087196, 'p95_latency': 2.5413527000055183, 'avg_ttft': 1.1443504811719654, 'p95_ttft': 2.109351908467943, 'avg_tpot': 0.015186634965007441, 'p95_tpot': 0.05290652182321214, 'makespan': 23.698134278005455, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 18
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.0756883833350406, 'p95_latency': 4.164826392303803, 'avg_ttft': 1.2006774152784299, 'p95_ttft': 1.9503377437213194, 'avg_tpot': 0.028226160259890675, 'p95_tpot': 0.07893691630714812, 'makespan': 38.63319284998579, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 2.189729427055378, 'p95_latency': 3.6547871295420906, 'avg_ttft': 1.3265637891114845, 'p95_ttft': 2.103102696285349, 'avg_tpot': 0.027844052836899797, 'p95_tpot': 0.05417922984530789, 'makespan': 38.76359627000056, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 2.0848680403982547, 'p95_latency': 4.168084048855235, 'avg_ttft': 1.2427653399483662, 'p95_ttft': 1.9720030537690025, 'avg_tpot': 0.027164603240318982, 'p95_tpot': 0.07725183469395437, 'makespan': 38.65367527102353, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.059859061222394, 'p95_latency': 4.1229930708475875, 'avg_ttft': 1.232877838283053, 'p95_ttft': 2.068426335358526, 'avg_tpot': 0.026676813643204556, 'p95_tpot': 0.07872306623593753, 'makespan': 38.573771907016635, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p5_10-0p1_10-1p5_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 30
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 30, 'request_rate': 0.6, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 5.569440522857864, 'p95_latency': 8.661429277822025, 'avg_ttft': 4.038072036621937, 'p95_ttft': 7.722835835980366, 'avg_tpot': 0.049398983426965394, 'p95_tpot': 0.05615550331816437, 'makespan': 32.13616377004655, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 30, 'request_rate': 0.6, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 5.660694498436836, 'p95_latency': 8.810746024127, 'avg_ttft': 4.147762864104394, 'p95_ttft': 7.840843917219898, 'avg_tpot': 0.04880424626878843, 'p95_tpot': 0.05454176622386571, 'makespan': 32.31034378899494, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 30, 'request_rate': 0.6, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 6.038529783213744, 'p95_latency': 8.472933855318114, 'avg_ttft': 3.8473077532738293, 'p95_ttft': 7.286279432268928, 'avg_tpot': 0.070684581610965, 'p95_tpot': 0.08276110278252857, 'makespan': 31.734215968986973, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 30, 'request_rate': 0.6, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.056708767424182, 'p95_latency': 12.079629861548892, 'avg_ttft': 3.774694061127957, 'p95_ttft': 6.910850553377529, 'avg_tpot': 0.170387571170846, 'p95_tpot': 0.32676565616284564, 'makespan': 31.177640347974375, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-2p0_10-0p1_10-2p0_10-0p1_seed2
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 35
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 35, 'request_rate': 0.7, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.1948431518327975, 'p95_latency': 9.253380361892049, 'avg_ttft': 4.708412115508691, 'p95_ttft': 7.57862987736007, 'avg_tpot': 0.04794938826851959, 'p95_tpot': 0.05445586320241883, 'makespan': 34.95339767995756, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 35, 'request_rate': 0.7, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 6.290838435679741, 'p95_latency': 9.345416705787645, 'avg_ttft': 4.802333287167961, 'p95_ttft': 7.675556948478332, 'avg_tpot': 0.048016295113283196, 'p95_tpot': 0.054549418835367465, 'makespan': 35.09971844701795, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 35, 'request_rate': 0.7, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 6.641853358029454, 'p95_latency': 9.78759346391889, 'avg_ttft': 4.473516920489991, 'p95_ttft': 7.231402601714942, 'avg_tpot': 0.0699463366948214, 'p95_tpot': 0.08267472817096859, 'makespan': 34.40468979702564, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'num_requests': 35, 'request_rate': 0.7, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 6, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 10.322793313569855, 'p95_latency': 14.908952029718785, 'avg_ttft': 4.379262350882137, 'p95_ttft': 6.9047737952671, 'avg_tpot': 0.19172680524799088, 'p95_tpot': 0.40139385323273014, 'makespan': 33.781609255995136, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-0p5_10-0p1_10-0p5_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 15
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.5328040669400556, 'p95_latency': 2.5321260946046094, 'avg_ttft': 1.0895386870135553, 'p95_ttft': 1.8362705795036156, 'avg_tpot': 0.01429888322343549, 'p95_tpot': 0.05293786566133701, 'makespan': 37.94569052802399, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 1.6155796665349045, 'p95_latency': 2.6055246043251827, 'avg_ttft': 1.1789986688682499, 'p95_ttft': 1.923942415212513, 'avg_tpot': 0.014083257989246919, 'p95_tpot': 0.05275151453247564, 'makespan': 37.99970869102981, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 1.5604428938007913, 'p95_latency': 2.5461423491942696, 'avg_ttft': 1.1287527309303793, 'p95_ttft': 1.8330889825709158, 'avg_tpot': 0.013925489124852003, 'p95_tpot': 0.0517452429668347, 'makespan': 37.970710547000635, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.5212546211279308, 'p95_latency': 2.5214963559003083, 'avg_ttft': 1.1073134623933583, 'p95_ttft': 2.067243994993623, 'avg_tpot': 0.013352940604341047, 'p95_tpot': 0.0526699444023712, 'makespan': 37.94633912696736, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 22
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.0416227044056128, 'p95_latency': 4.0708066072082145, 'avg_ttft': 1.312894487946654, 'p95_ttft': 2.4466677403019275, 'avg_tpot': 0.02350736182125673, 'p95_tpot': 0.07345102657620313, 'makespan': 42.60436184995342, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 2.0402627461827993, 'p95_latency': 3.4381687443645204, 'avg_ttft': 1.357596382284431, 'p95_ttft': 2.500459246779792, 'avg_tpot': 0.022021495609624787, 'p95_tpot': 0.0540101876197901, 'makespan': 42.7202474239748, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 2.07308839873506, 'p95_latency': 4.201762142317602, 'avg_ttft': 1.2884113657690415, 'p95_ttft': 2.4338973361765963, 'avg_tpot': 0.025312162353742534, 'p95_tpot': 0.08166733331407511, 'makespan': 42.657421187032014, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.146987813138615, 'p95_latency': 4.889570699137403, 'avg_ttft': 1.3418522055488376, 'p95_ttft': 2.406495937044383, 'avg_tpot': 0.025972116373863777, 'p95_tpot': 0.09092903774205384, 'makespan': 42.610292746976484, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p5_10-0p1_10-1p5_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 29
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 29, 'request_rate': 0.58, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 3.7443164488951, 'p95_latency': 6.904257443815, 'avg_ttft': 1.9210644095879177, 'p95_ttft': 3.2645011920132676, 'avg_tpot': 0.05881458191313492, 'p95_tpot': 0.1260274940523349, 'makespan': 43.2485542059876, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 29, 'request_rate': 0.58, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 3.492172466934225, 'p95_latency': 5.099145431013312, 'avg_ttft': 2.1187985053081224, 'p95_ttft': 3.428824136022013, 'avg_tpot': 0.04430238585890653, 'p95_tpot': 0.05577131793008096, 'makespan': 43.305716196016874, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 29, 'request_rate': 0.58, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 3.616992402655185, 'p95_latency': 5.379453971388283, 'avg_ttft': 1.9051641735573428, 'p95_ttft': 3.1634657219983637, 'avg_tpot': 0.0552202654547691, 'p95_tpot': 0.08225689561917417, 'makespan': 43.29606938402867, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 29, 'request_rate': 0.58, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 4.681257902453894, 'p95_latency': 8.725684484012891, 'avg_ttft': 1.8926262015272093, 'p95_ttft': 3.2742489797878074, 'avg_tpot': 0.08995586132021564, 'p95_tpot': 0.23240374348374201, 'makespan': 43.248725190991536, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-2p0_10-0p1_10-2p0_10-0p1_seed3
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 38
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 38, 'request_rate': 0.76, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 4.720683651896635, 'p95_latency': 6.7690534568566365, 'avg_ttft': 3.2436573040490897, 'p95_ttft': 5.5205190161301285, 'avg_tpot': 0.04764601122088855, 'p95_tpot': 0.05446046864136963, 'makespan': 43.94913144200109, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 38, 'request_rate': 0.76, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 4.81996359844159, 'p95_latency': 6.880934462699224, 'avg_ttft': 3.3581835130722824, 'p95_ttft': 5.636545615410432, 'avg_tpot': 0.04715419630223572, 'p95_tpot': 0.05448547829667317, 'makespan': 44.03278159996262, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 38, 'request_rate': 0.76, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 5.156293366475055, 'p95_latency': 6.993084293749416, 'avg_ttft': 3.0133301459213007, 'p95_ttft': 5.041725398413837, 'avg_tpot': 0.06912784582431467, 'p95_tpot': 0.08291312287281824, 'makespan': 43.98139119998086, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'num_requests': 38, 'request_rate': 0.76, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.024080338413018, 'p95_latency': 14.015162417650572, 'avg_ttft': 2.9119251544853846, 'p95_ttft': 4.563072710082633, 'avg_tpot': 0.19716629625573012, 'p95_tpot': 0.40581275767781916, 'makespan': 43.978976072976366, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-0p5_10-0p1_10-0p5_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:0.5,10:0.1,10:0.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 13
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.4904024469254251, 'p95_latency': 2.9383353552315383, 'avg_ttft': 1.114869462536612, 'p95_ttft': 2.154658364213537, 'avg_tpot': 0.01211396723834881, 'p95_tpot': 0.05294316347703457, 'makespan': 35.22336906200508, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 1.5528378744538014, 'p95_latency': 2.9967240556026806, 'avg_ttft': 1.1708182002274463, 'p95_ttft': 2.199536783387884, 'avg_tpot': 0.012323215297624358, 'p95_tpot': 0.05331344488414846, 'makespan': 35.28222835995257, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 1.5494351184685142, 'p95_latency': 3.1239656821824604, 'avg_ttft': 1.1227711953867514, 'p95_ttft': 2.0993230435997243, 'avg_tpot': 0.01376335235747622, 'p95_tpot': 0.06153247338013659, 'makespan': 35.25605462200474, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:0.5,10:0.1,10:0.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 1.5032740417608204, 'p95_latency': 3.047003229160327, 'avg_ttft': 1.1324289144652608, 'p95_ttft': 2.1234954104060306, 'avg_tpot': 0.01196274604179224, 'p95_tpot': 0.05277714410894395, 'makespan': 35.231153058004566, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p0_10-0p1_10-1p0_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.0,10:0.1,10:1.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 22
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.2894537835434843, 'p95_latency': 4.24355412479199, 'avg_ttft': 1.4719209723195739, 'p95_ttft': 3.398116031318204, 'avg_tpot': 0.026372026168513234, 'p95_tpot': 0.07372366708812242, 'makespan': 39.14753473899327, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 2.3345115118241995, 'p95_latency': 4.3944814701826544, 'avg_ttft': 1.5734812827219933, 'p95_ttft': 3.530110368947498, 'avg_tpot': 0.02454936222910343, 'p95_tpot': 0.05448841811899441, 'makespan': 39.205521297990344, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 2.469368996950586, 'p95_latency': 4.266928721638396, 'avg_ttft': 1.4937949329085478, 'p95_ttft': 3.3302651351608796, 'avg_tpot': 0.031470131098130266, 'p95_tpot': 0.08239576799415743, 'makespan': 39.18011367198778, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.0,10:0.1,10:1.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.6099566706424495, 'p95_latency': 5.341253306128783, 'avg_ttft': 1.4686850000421559, 'p95_ttft': 3.1764409180643267, 'avg_tpot': 0.03681521518065463, 'p95_tpot': 0.12525115955157218, 'makespan': 39.15400988899637, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-1p5_10-0p1_10-1p5_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:1.5,10:0.1,10:1.5,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 32
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 3.263773571632555, 'p95_latency': 6.098603298462694, 'avg_ttft': 2.180821385130912, 'p95_ttft': 4.161366989035741, 'avg_tpot': 0.034933941500053, 'p95_tpot': 0.06343517016925503, 'makespan': 40.29389634198742, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 3.3121605284632096, 'p95_latency': 5.9443532024335575, 'avg_ttft': 2.2659350524336332, 'p95_ttft': 4.277608764785691, 'avg_tpot': 0.033749208904179887, 'p95_tpot': 0.054306060344829495, 'makespan': 40.454121308983304, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 3.589706242311877, 'p95_latency': 6.514960720407544, 'avg_ttft': 2.120878863212056, 'p95_ttft': 4.060493470955407, 'avg_tpot': 0.04738152835805874, 'p95_tpot': 0.0824665077096377, 'makespan': 40.07769702596124, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:1.5,10:0.1,10:1.5,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 4.502652059003594, 'p95_latency': 8.439113311836262, 'avg_ttft': 2.1398575633429573, 'p95_ttft': 4.356057578494074, 'avg_tpot': 0.07621917727937538, 'p95_tpot': 0.22182152585394965, 'makespan': 39.7792886379757, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-nemotron_30b_p20000_o32_phases-10-0p1_10-2p0_10-0p1_10-2p0_10-0p1_seed4
+RUN: /home/timo/miniconda3/envs/qwen38-test/bin/python benchmark.py --model nemotron_30b --prompt-tokens 20000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas_nemotron,1280,2048,16384 --max-num-seqs 256 --phases 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+====================================================================================================
+Selected server configurations:
+  ppas_16k_1280_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=True, ppas_b_cap=1280
+  mbt_1280_s256: max_num_batched_tokens=1280, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_scheduled_tokens=None, max_num_seqs=256, ppas_enabled=False, ppas_b_cap=None
+================================================================================
+================================================================================
+TRACE 0
+arrival mode    : piecewise_poisson
+phases          : 10:0.1,10:2.0,10:0.1,10:2.0,10:0.1
+prompt tokens   : 20000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 42
+================================================================================
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=1
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 42, 'request_rate': 0.84, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'ppas_16k_1280_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 5.197600903072661, 'p95_latency': 7.364568309037713, 'avg_ttft': 3.5970514127915347, 'p95_ttft': 6.5582186999701655, 'avg_tpot': 0.05163062871874599, 'p95_tpot': 0.09107135321499937, 'makespan': 44.34469038899988, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 1280 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 42, 'request_rate': 0.84, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'mbt_1280_s256', 'max_num_batched_tokens': 1280, 'max_num_seqs': 256, 'avg_latency': 5.226375119404457, 'p95_latency': 7.583740709666745, 'avg_ttft': 3.7823236709518824, 'p95_ttft': 6.809320646521518, 'avg_tpot': 0.04658230478879273, 'p95_tpot': 0.05448880995719529, 'makespan': 44.51604993100045, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 2048 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 42, 'request_rate': 0.84, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 5.592777905690517, 'p95_latency': 7.494547522914945, 'avg_ttft': 3.462917167474405, 'p95_ttft': 6.2442889530240775, 'avg_tpot': 0.06870518510374556, 'p95_tpot': 0.08420185684677094, 'makespan': 43.84868086699862, 'failed': 0, 'error': ''}
+START SERVER: vllm serve nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-model-len 21000 --language-model-only --skip-mm-profiling --kv-cache-dtype fp8_e4m3 --max-num-batched-tokens 16384 --max-num-seqs 256 PPAS_ENABLED=0
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 20000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.1,10:2.0,10:0.1,10:2.0,10:0.1', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'num_requests': 42, 'request_rate': 0.84, 'prompt_mean': 20000, 'prompt_p50': 20000.0, 'prompt_p95': 20000.0, 'prompt_max': 20000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 7, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.853190740691, 'p95_latency': 14.909194446806213, 'avg_ttft': 3.310405829809107, 'p95_ttft': 5.6492883178114415, 'avg_tpot': 0.21105757777038361, 'p95_tpot': 0.45057827246904875, 'makespan': 43.1664252349874, 'failed': 0, 'error': ''}
+
+====================================================================================================
+SWEEP COMPLETE
+Successful experiments: 20
+Failed experiments    : 0
+====================================================================================================
+
+Process finished with exit code 0
+
