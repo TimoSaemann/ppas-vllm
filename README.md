@@ -296,14 +296,11 @@ are not part of the current paper.
 If you use P-PAS or this repository in your research, please cite:
 
 ```bibtex
-@misc{sämann2026ppasprefillpressureadaptivescheduling,
-      title={P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving},
-      author={Timo Sämann},
-      year={2026},
-      eprint={2608.15171},
-      archivePrefix={arXiv},
-      primaryClass={cs.DC},
-      url={https://arxiv.org/abs/2608.15171},
+@article{samann2026ppas,
+  title={P-PAS: Prefill-Pressure Adaptive Scheduling for Long-Context LLM Serving},
+  author={S{\"a}mann, Timo},
+  journal={arXiv preprint arXiv:2608.15171},
+  year={2026}
 }
 ```
 
