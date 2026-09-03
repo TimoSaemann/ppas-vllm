@@ -3,6 +3,7 @@
 import itertools
 import time
 import os
+import json
 from collections import defaultdict, deque
 from collections.abc import Iterable
 from dataclasses import replace
@@ -95,18 +96,58 @@ class Scheduler(SchedulerInterface):
             )
         self.structured_output_manager = structured_output_manager
         self.is_encoder_decoder = vllm_config.model_config.is_encoder_decoder
-        # P-PAS is opt-in. When disabled, the scheduler follows the
-        # original vLLM scheduling path without an additional prefill cap.
+        # P-PAS and P-PAS+ are opt-in. When disabled, the scheduler
+        # follows the original vLLM scheduling path.
         self.ppas_enabled = os.getenv("PPAS_ENABLED", "0") == "1"
-        if self.ppas_enabled:
+        self.ppas_plus_enabled = os.getenv("PPAS_PLUS_ENABLED", "0") == "1"
+
+        if self.ppas_enabled and self.ppas_plus_enabled:
+            raise ValueError(
+                "PPAS_ENABLED and PPAS_PLUS_ENABLED cannot both be enabled."
+            )
+
+        if self.ppas_enabled or self.ppas_plus_enabled:
             self.ppas_b_cap = int(os.environ["PPAS_B_CAP"])
+
+            if self.ppas_b_cap <= 0:
+                raise ValueError("PPAS_B_CAP must be positive.")
         else:
             self.ppas_b_cap = None
 
-        # include_finished_set controls whether a separate set of finished
-        # request ids should be included in the EngineCoreOutputs returned
-        # by update_from_outputs(). This is currently used in the multi-engine
-        # case to track request lifetimes efficiently.
+        if self.ppas_plus_enabled:
+            self.ppas_large_prefill_threshold = int(
+                os.getenv("PPAS_LARGE_PREFILL_THRESHOLD", "65536")
+            )
+
+            if self.ppas_large_prefill_threshold <= 0:
+                raise ValueError(
+                    "PPAS_LARGE_PREFILL_THRESHOLD must be positive."
+                )
+        else:
+            self.ppas_large_prefill_threshold = None
+
+        # Optional scheduler debug tracing.
+        self.scheduler_debug_trace = (
+                os.getenv("SCHEDULER_DEBUG_TRACE", "0") == "1"
+        )
+        self.scheduler_debug_step = 0
+
+        if self.scheduler_debug_trace:
+            debug_path = os.getenv(
+                "SCHEDULER_DEBUG_TRACE_PATH",
+                "/tmp/scheduler_debug.csv",
+            )
+
+            with open(debug_path, "w") as f:
+                f.write(
+                    "step,"
+                    "num_active_prefills,"
+                    "num_running_decodes,"
+                    "running_remaining_prefill_tokens,"
+                    "token_budget,"
+                    "running_requests\n"
+                )
+
         self.finished_req_ids_dict: dict[int, set[str]] | None = (
             defaultdict(set) if include_finished_set else None
         )
@@ -466,13 +507,26 @@ class Scheduler(SchedulerInterface):
         num_scheduled_tokens: dict[str, int] = {}
         token_budget = self.max_num_scheduled_tokens
 
-        if self.ppas_enabled:
-            num_prefill_running = sum(
-                request.num_computed_tokens < request.num_prompt_tokens
+        # P-PAS / P-PAS+ state and budget selection
+        if (
+                self.ppas_enabled
+                or self.ppas_plus_enabled
+                or self.scheduler_debug_trace
+        ):
+            prefill_running = [
+                request
                 for request in self.running
-            )
+                if request.num_computed_tokens < request.num_prompt_tokens
+            ]
 
-            num_running_decodes = len(self.running) - num_prefill_running
+            decode_running = [
+                request
+                for request in self.running
+                if request.num_computed_tokens >= request.num_prompt_tokens
+            ]
+
+            num_prefill_running = len(prefill_running)
+            num_running_decodes = len(decode_running)
 
             num_prefill_waiting = sum(
                 request.num_computed_tokens < request.num_prompt_tokens
@@ -487,16 +541,67 @@ class Scheduler(SchedulerInterface):
                     + num_prefill_waiting
             )
 
-            under_prefill_pressure = (
+            running_remaining_prefill_tokens = sum(
+                max(
+                    request.num_prompt_tokens - request.num_computed_tokens,
+                    0,
+                )
+                for request in prefill_running
+            )
+
+        if self.ppas_enabled or self.ppas_plus_enabled:
+            # Original P-PAS pressure condition.
+            under_pressure = (
                     num_active_prefills >= 2
                     and num_running_decodes > 0
             )
 
-            token_budget = (
-                self.ppas_b_cap
-                if under_prefill_pressure
-                else self.max_num_scheduled_tokens
+            if self.ppas_plus_enabled:
+                # P-PAS+: additionally recognize pressure from a single
+                # running prefill with substantial work remaining.
+                single_large_prefill_pressure = (
+                        num_prefill_running == 1
+                        and num_running_decodes >= 2
+                        and running_remaining_prefill_tokens
+                        >= self.ppas_large_prefill_threshold
+                )
+
+                under_pressure = (
+                        under_pressure
+                        or single_large_prefill_pressure
+                )
+
+            if under_pressure:
+                token_budget = self.ppas_b_cap
+            else:
+                token_budget = self.max_num_scheduled_tokens
+
+        if self.scheduler_debug_trace:
+            debug_path = os.getenv(
+                "SCHEDULER_DEBUG_TRACE_PATH",
+                "/tmp/scheduler_debug.csv",
             )
+
+            running_requests = "|".join(
+                (
+                    f"{request.request_id}:"
+                    f"{'P' if request.num_computed_tokens < request.num_prompt_tokens else 'D'}:"
+                    f"{max(request.num_prompt_tokens - request.num_computed_tokens, 0)}"
+                )
+                for request in self.running
+            )
+
+            with open(debug_path, "a") as f:
+                f.write(
+                    f"{self.scheduler_debug_step},"
+                    f"{num_active_prefills},"
+                    f"{num_running_decodes},"
+                    f"{running_remaining_prefill_tokens},"
+                    f"{token_budget},"
+                    f"{running_requests}\n"
+                )
+
+            self.scheduler_debug_step += 1
 
         if self._pause_state == PauseState.PAUSED_ALL:
             # Do not schedule any requests when paused.

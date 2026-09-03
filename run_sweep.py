@@ -31,10 +31,7 @@ def parse_args() -> argparse.Namespace:
         "--models",
         nargs="+",
         default=["qwen_3b"],
-        help=(
-            "One or more model aliases understood by benchmark.py. "
-            "Example: --models qwen_3b llama_3b smollm3_3b"
-        ),
+        help="One or more model aliases understood by benchmark.py.",
     )
 
     # ------------------------------------------------------------------
@@ -98,9 +95,13 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--duration",
-        type=float,
-        default=10.0,
-        help="Duration for deterministic workloads.",
+        type=comma_separated_floats,
+        default=[10.0],
+        metavar="SECONDS",
+        help=(
+            "Comma-separated durations for deterministic workloads. "
+            "Example: --duration 10,20,30,60"
+        ),
     )
 
     parser.add_argument(
@@ -118,6 +119,11 @@ def parse_args() -> argparse.Namespace:
             "'10:0.2,10:1.2,10:0.2,10:1.2,10:0.2'"
         ),
     )
+    parser.add_argument(
+        "--mixed-workload",
+        action="store_true",
+        help="Use the heterogeneous 20-shape long-context workload defined in benchmark.py.",
+    )
 
     # ------------------------------------------------------------------
     # vLLM configurations forwarded to benchmark.py
@@ -129,9 +135,9 @@ def parse_args() -> argparse.Namespace:
         default="2048,16384",
         help=(
             "Comma-separated benchmark configurations forwarded to "
-            "benchmark.py. Examples: "
-            "--configs 2048,16384 or "
-            "--configs 2048,16384,ppas"
+            "benchmark.py. Example: "
+            "--configs ppas_plus_nemotron,ppas_nemotron,"
+            "1024,1280,2048,4096,8192,16384"
         ),
     )
 
@@ -192,6 +198,12 @@ def parse_args() -> argparse.Namespace:
             "Optional file receiving the complete combined stdout/stderr "
             "of the sweep. Output is still shown in the terminal."
         ),
+    )
+
+    parser.add_argument(
+        "--debug-trace",
+        action="store_true",
+        help="Enable detailed scheduler debug tracing.",
     )
 
     return parser.parse_args()
@@ -280,20 +292,31 @@ def sanitize(value: str) -> str:
 
 def build_cases(
     args: argparse.Namespace,
-) -> Iterable[tuple[str, int, int, int, str | float]]:
+) -> Iterable[
+    tuple[str, int, int, int, str | float, float | None]
+]:
     if args.arrival_mode == "piecewise_poisson":
-        workload_values: Iterable[str | float] = args.phases
-    elif args.arrival_mode == "deterministic":
-        workload_values = args.request_rates
-    else:
-        raise ValueError(f"Unsupported arrival mode: {args.arrival_mode}")
+        return itertools.product(
+            args.models,
+            args.prompt_lengths,
+            args.output_lengths,
+            args.seeds,
+            args.phases,
+            [None],
+        )
 
-    return itertools.product(
-        args.models,
-        args.prompt_lengths,
-        args.output_lengths,
-        args.seeds,
-        workload_values,
+    if args.arrival_mode == "deterministic":
+        return itertools.product(
+            args.models,
+            args.prompt_lengths,
+            args.output_lengths,
+            args.seeds,
+            args.request_rates,
+            args.duration,
+        )
+
+    raise ValueError(
+        f"Unsupported arrival mode: {args.arrival_mode}"
     )
 
 
@@ -357,111 +380,135 @@ def run_sweep(
     succeeded = 0
     failed = 0
 
+    configs = [
+        config.strip()
+        for config in args.configs.split(",")
+        if config.strip()
+    ]
+
+    if not configs:
+        raise ValueError("At least one benchmark configuration is required.")
+
     for (
         model,
         prompt_tokens,
         output_tokens,
         seed,
         workload_value,
+        duration,
     ) in build_cases(args):
 
-        cmd = [
-            sys.executable,
-            str(args.benchmark_script),
-            "--model",
-            model,
-            "--prompt-tokens",
-            str(prompt_tokens),
-            "--output-tokens",
-            str(output_tokens),
-            "--arrival-mode",
-            arrival_mode,
-            "--seed",
-            str(seed),
-            "--configs",
-            args.configs,
-            "--max-num-seqs",
-            str(args.max_num_seqs),
-        ]
+        for config in configs:
+            cmd = [
+                sys.executable,
+                str(args.benchmark_script),
+                "--model",
+                model,
+                "--prompt-tokens",
+                str(prompt_tokens),
+                "--output-tokens",
+                str(output_tokens),
+                "--arrival-mode",
+                arrival_mode,
+                "--seed",
+                str(seed),
+                "--configs",
+                config,
+                "--max-num-seqs",
+                str(args.max_num_seqs),
+            ]
 
-        if arrival_mode == "piecewise_poisson":
-            phases = str(workload_value)
+            if arrival_mode == "piecewise_poisson":
+                phases = str(workload_value)
 
-            experiment_name = (
-                f"piecewise"
-                f"_model-{sanitize(model)}"
-                f"_p{prompt_tokens}"
-                f"_o{output_tokens}"
-                f"_phases-{sanitize(phases)}"
-                f"_seed{seed}"
-            )
+                experiment_name = (
+                    f"piecewise"
+                    f"_model-{sanitize(model)}"
+                    f"_p{prompt_tokens}"
+                    f"_o{output_tokens}"
+                    f"_phases-{sanitize(phases)}"
+                    f"_seed{seed}"
+                    f"_config-{sanitize(config)}"
+                )
 
-            cmd.extend([
-                "--phases",
-                phases,
-            ])
+                cmd.extend([
+                    "--phases",
+                    phases,
+                ])
 
-        else:
-            rate = float(workload_value)
+            else:
+                rate = float(workload_value)
 
-            experiment_name = (
-                f"{arrival_mode}"
-                f"_model-{sanitize(model)}"
-                f"_p{prompt_tokens}"
-                f"_o{output_tokens}"
-                f"_r{rate:g}"
-                f"_d{args.duration:g}"
-                f"_seed{seed}"
-            )
+                if duration is None:
+                    raise ValueError(
+                        "Deterministic workload is missing duration."
+                    )
 
-            cmd.extend([
-                "--request-rate",
-                str(rate),
-                "--duration",
-                str(args.duration),
-            ])
+                experiment_name = (
+                    f"{arrival_mode}"
+                    f"_model-{sanitize(model)}"
+                    f"_p{prompt_tokens}"
+                    f"_o{output_tokens}"
+                    f"_r{rate:g}"
+                    f"_d{duration:g}"
+                    f"_seed{seed}"
+                    f"_config-{sanitize(config)}"
+                )
 
-        if args.profile:
-            cmd.append("--profile")
+                cmd.extend([
+                    "--request-rate",
+                    str(rate),
+                    "--duration",
+                    str(duration),
+                ])
 
-        if args.profile_dir is not None:
-            cmd.extend([
-                "--profile-dir",
-                str(args.profile_dir),
-            ])
+            if args.profile:
+                cmd.append("--profile")
 
-        if args.reuse_server:
-            cmd.append("--reuse-server")
+            if args.profile_dir is not None:
+                cmd.extend([
+                    "--profile-dir",
+                    str(args.profile_dir),
+                ])
 
-        if args.skip_warmup:
-            cmd.append("--skip-warmup")
+            if args.reuse_server:
+                cmd.append("--reuse-server")
 
-        writer.write("=" * 100 + "\n")
-        writer.write(f"EXPERIMENT: {experiment_name}\n")
-        writer.write(f"RUN: {format_command(cmd)}\n")
-        writer.write("=" * 100 + "\n")
+            if args.skip_warmup:
+                cmd.append("--skip-warmup")
 
-        return_code = run_command(
-            cmd=cmd,
-            writer=writer,
-        )
+            if args.debug_trace:
+                cmd.append("--debug-trace")
 
-        if return_code == 0:
-            succeeded += 1
-            continue
+            if args.mixed_workload:
+                cmd.append("--mixed-workload")
 
-        failed += 1
+            writer.write("=" * 100 + "\n")
+            writer.write(f"EXPERIMENT: {experiment_name}\n")
+            writer.write(f"RUN: {format_command(cmd)}\n")
+            writer.write("=" * 100 + "\n")
 
-        writer.write(
-            f"\nERROR: Experiment {experiment_name!r} exited with "
-            f"status {return_code}.\n"
-        )
-
-        if not args.continue_on_error:
-            raise subprocess.CalledProcessError(
-                returncode=return_code,
+            return_code = run_command(
                 cmd=cmd,
+                writer=writer,
             )
+
+            if return_code == 0:
+                succeeded += 1
+                continue
+
+            failed += 1
+
+            writer.write(
+                f"\nERROR: Experiment {experiment_name!r} exited with "
+                f"status {return_code}.\n"
+            )
+
+            if not args.continue_on_error:
+                raise subprocess.CalledProcessError(
+                    returncode=return_code,
+                    cmd=cmd,
+                )
 
     return succeeded, failed
 
@@ -477,9 +524,9 @@ def main() -> None:
             "--prompt-lengths must contain positive values."
         )
 
-    if any(value < 0 for value in args.output_lengths):
+    if any(value <= 0 for value in args.output_lengths):
         raise SystemExit(
-            "--output-lengths must contain non-negative values."
+            "--output-lengths must contain positive values."
         )
 
     if args.arrival_mode != "piecewise_poisson":
@@ -488,9 +535,9 @@ def main() -> None:
                 "--request-rates must contain positive values."
             )
 
-        if args.duration <= 0:
+        if any(duration <= 0 for duration in args.duration):
             raise SystemExit(
-                "--duration must be positive."
+                "--duration must contain positive values."
             )
 
     if not args.benchmark_script.exists():
@@ -545,3 +592,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

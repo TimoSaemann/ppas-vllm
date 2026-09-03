@@ -76,6 +76,14 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=32,
     )
+    parser.add_argument(
+        "--mixed-workload",
+        action="store_true",
+        help=(
+            "Use the heterogeneous 20-shape long-context workload "
+            "defined in MIXED_WORKLOAD."
+        ),
+    )
 
     parser.add_argument(
         "--request-rate",
@@ -118,10 +126,8 @@ def parse_args() -> argparse.Namespace:
         default="2048,16384",
         help=(
             "Comma-separated server configurations. Supported values are "
-            "'default', integer MBT values such as '2048' or '16384', "
-            "'ppas_qwen', and 'ppas_nemotron'. Examples: "
-            "'--configs 2048,16384' or "
-            "'--configs ppas_qwen,768,2048'."
+            "'default', integer MBT values, 'ppas_qwen', 'ppas_nemotron', "
+            "and 'ppas_plus_nemotron'."
         ),
     )
 
@@ -130,6 +136,12 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=256,
         help="max_num_seqs used for all selected server configurations.",
+    )
+
+    parser.add_argument(
+        "--debug-trace",
+        action="store_true",
+        help="Enable detailed scheduler/request tracing for debugging.",
     )
 
     return parser.parse_args()
@@ -170,9 +182,11 @@ class ServerConfig:
     name: str
     max_num_batched_tokens: int | None
     max_num_seqs: int | None
-    max_num_scheduled_tokens: int | None = None
+
     ppas_enabled: bool = False
+    ppas_plus_enabled: bool = False
     ppas_b_cap: int | None = None
+    ppas_large_prefill_threshold: int | None = None
 
 def parse_configs(
     value: str,
@@ -227,12 +241,26 @@ def parse_configs(
             )
             continue
 
+        if item == "ppas_plus_nemotron":
+            configs.append(
+                ServerConfig(
+                    name=f"ppas_plus_16k_1280_s{max_num_seqs}",
+                    max_num_batched_tokens=16384,
+                    max_num_seqs=max_num_seqs,
+                    ppas_plus_enabled=True,
+                    ppas_b_cap=1280,
+                    ppas_large_prefill_threshold=65536,
+                )
+            )
+            continue
+
         try:
             mbt = int(item)
         except ValueError as exc:
             raise ValueError(
                 f"Invalid configuration {raw_item!r}. "
-                "Expected 'default', 'ppas_qwen', 'ppas_nemotron', or an integer MBT value."
+                "Expected 'default', 'ppas_qwen', 'ppas_nemotron', "
+                "'ppas_plus_nemotron', or an integer MBT value."
             ) from exc
 
         if mbt <= 0:
@@ -298,6 +326,106 @@ def make_prompt(
 
     return unique_prefix + [filler_id] * (prompt_tokens - prefix_length)
 
+# Uniform 4 x 5 grid of prompt and output lengths.
+MIXED_WORKLOAD = [
+    (1 / 20,  16384,  16),
+    (1 / 20,  16384,  32),
+    (1 / 20,  16384,  64),
+    (1 / 20,  16384, 128),
+    (1 / 20,  16384, 256),
+
+    (1 / 20,  32768,  16),
+    (1 / 20,  32768,  32),
+    (1 / 20,  32768,  64),
+    (1 / 20,  32768, 128),
+    (1 / 20,  32768, 256),
+
+    (1 / 20,  65536,  16),
+    (1 / 20,  65536,  32),
+    (1 / 20,  65536,  64),
+    (1 / 20,  65536, 128),
+    (1 / 20,  65536, 256),
+
+    (1 / 20, 131072,  16),
+    (1 / 20, 131072,  32),
+    (1 / 20, 131072,  64),
+    (1 / 20, 131072, 128),
+    (1 / 20, 131072, 256),
+]
+
+def assign_mixed_workload_shapes(
+    requests: list[RequestSpec],
+    rng: random.Random,
+) -> None:
+    if not requests:
+        return
+
+    probabilities = [item[0] for item in MIXED_WORKLOAD]
+
+    if not np.isclose(sum(probabilities), 1.0):
+        raise ValueError(
+            "MIXED_WORKLOAD probabilities must sum to 1.0, "
+            f"got {sum(probabilities):.6f}."
+        )
+
+    num_requests = len(requests)
+
+    # Ideal (possibly fractional) number of requests per workload.
+    expected_counts = [
+        probability * num_requests
+        for probability, _, _ in MIXED_WORKLOAD
+    ]
+
+    # First assign the integer floor.
+    counts = [
+        int(np.floor(count))
+        for count in expected_counts
+    ]
+
+    # Distribute remaining requests to the workloads with the largest
+    # fractional remainders.
+    remaining = num_requests - sum(counts)
+
+    fractional_parts = [
+        expected - count
+        for expected, count in zip(expected_counts, counts)
+    ]
+
+    indices = list(range(len(MIXED_WORKLOAD)))
+
+    # Random tie-breaking avoids always favoring the first workload
+    # when fractional remainders are identical.
+    rng.shuffle(indices)
+
+    indices.sort(
+        key=lambda i: fractional_parts[i],
+        reverse=True,
+    )
+
+    for i in indices[:remaining]:
+        counts[i] += 1
+
+    # Build the request-shape assignments.
+    shapes = []
+
+    for count, (_, prompt_tokens, output_tokens) in zip(
+        counts,
+        MIXED_WORKLOAD,
+    ):
+        shapes.extend(
+            [(prompt_tokens, output_tokens)] * count
+        )
+
+    # Randomize which arrival receives which request type.
+    rng.shuffle(shapes)
+
+    for request, (prompt_tokens, output_tokens) in zip(
+        requests,
+        shapes,
+    ):
+        request.prompt_tokens = prompt_tokens
+        request.output_tokens = output_tokens
+
 
 def sample_trace(
     args: argparse.Namespace,
@@ -358,15 +486,15 @@ def sample_trace(
                     phase_rate=args.request_rate,
                 )
             )
-
+    if args.mixed_workload:
+        assign_mixed_workload_shapes(requests, rng)
     return requests
 
 def trace_features(requests: list[RequestSpec], duration_s: float) -> dict:
     prompt_tokens = [r.prompt_tokens for r in requests]
     output_tokens = [r.output_tokens for r in requests]
 
-    # approximate peak concurrency based only on requested output length is hard;
-    # for v1 use arrival density proxy: max arrivals in any 1s window
+    # Arrival-density proxy: maximum arrivals in any 1-second window.
     arrivals = [r.arrival_s for r in requests]
     peak_arrivals_1s = 0
     for t in arrivals:
@@ -399,7 +527,7 @@ def start_vllm(
         "--host", "0.0.0.0",
         "--port", "8000",
         "--no-enable-log-requests",
-        "--max-model-len", "21000",
+        "--max-model-len", "132000",
         "--language-model-only",
         "--skip-mm-profiling",
         "--kv-cache-dtype", "fp8_e4m3",
@@ -409,11 +537,6 @@ def start_vllm(
         vllm_cmd += [
             "--max-num-batched-tokens",
             str(config.max_num_batched_tokens),
-        ]
-    if config.max_num_scheduled_tokens is not None:
-        vllm_cmd += [
-            "--max-num-scheduled-tokens",
-            str(config.max_num_scheduled_tokens),
         ]
     if config.max_num_seqs is not None:
         vllm_cmd += [
@@ -442,18 +565,31 @@ def start_vllm(
         cmd = vllm_cmd
 
     env = os.environ.copy()
+
     env["PPAS_ENABLED"] = "1" if config.ppas_enabled else "0"
+    env["PPAS_PLUS_ENABLED"] = "1" if config.ppas_plus_enabled else "0"
 
     if config.ppas_b_cap is not None:
         env["PPAS_B_CAP"] = str(config.ppas_b_cap)
     else:
         env.pop("PPAS_B_CAP", None)
 
-    print(
-        "START SERVER:",
-        " ".join(cmd),
-        f"PPAS_ENABLED={env['PPAS_ENABLED']}",
-    )
+    if config.ppas_large_prefill_threshold is not None:
+        env["PPAS_LARGE_PREFILL_THRESHOLD"] = str(
+            config.ppas_large_prefill_threshold
+        )
+    else:
+        env.pop("PPAS_LARGE_PREFILL_THRESHOLD", None)
+
+    if args.debug_trace:
+        env["SCHEDULER_DEBUG_TRACE"] = "1"
+        env["SCHEDULER_DEBUG_TRACE_PATH"] = (
+            f"/tmp/scheduler_trace_{model_name}_"
+            f"seed{trace_id}_{config.name}.csv"
+        )
+    else:
+        env.pop("SCHEDULER_DEBUG_TRACE", None)
+        env.pop("SCHEDULER_DEBUG_TRACE_PATH", None)
 
     return subprocess.Popen(
         cmd,
@@ -640,6 +776,7 @@ def summarize_run(results: list[dict]) -> dict:
             "p95_ttft": float("nan"),
             "avg_tpot": float("nan"),
             "p95_tpot": float("nan"),
+            "makespan": float("nan"),
         }
 
     latencies = [r["latency"] for r in results]
@@ -819,7 +956,8 @@ async def run_one(
             }
             for result in results
         ]
-
+        for request_row in request_rows:
+            print("REQUEST_RESULT:", request_row)
         # workaround to make Nsight capture the end of the interesting workload
         if args.profile:
             await asyncio.sleep(1.0)
@@ -836,6 +974,7 @@ async def run_one(
             "p95_ttft": float("nan"),
             "avg_tpot": float("nan"),
             "p95_tpot": float("nan"),
+            "makespan": float("nan"),
         }
     finally:
         if proc is not None:
@@ -917,10 +1056,12 @@ async def main() -> None:
         print(
             f"  {config.name}: "
             f"max_num_batched_tokens={config.max_num_batched_tokens}, "
-            f"max_num_scheduled_tokens={config.max_num_scheduled_tokens}, "
             f"max_num_seqs={config.max_num_seqs}, "
             f"ppas_enabled={config.ppas_enabled}, "
-            f"ppas_b_cap={config.ppas_b_cap}"
+            f"ppas_plus_enabled={config.ppas_plus_enabled}, "
+            f"ppas_b_cap={config.ppas_b_cap}, "
+            f"ppas_large_prefill_threshold="
+            f"{config.ppas_large_prefill_threshold}"
         )
     requests = sample_trace(
         args=args,
@@ -928,6 +1069,19 @@ async def main() -> None:
         trace_seed=trace_seed,
         duration_s=trace_duration_s,
     )
+    if args.debug_trace:
+        for request in requests:
+            print(
+                "TRACE_REQUEST:",
+                {
+                    "request_id": request.request_id,
+                    "arrival_s": request.arrival_s,
+                    "prompt_tokens": request.prompt_tokens,
+                    "output_tokens": request.output_tokens,
+                    "phase_index": request.phase_index,
+                    "phase_rate": request.phase_rate,
+                },
+            )
 
     print("=" * 80)
     print("=" * 80)
@@ -939,8 +1093,11 @@ async def main() -> None:
     else:
         print(f"request rate    : {args.request_rate}")
 
-    print(f"prompt tokens   : {args.prompt_tokens}")
-    print(f"output tokens   : {args.output_tokens}")
+    if args.mixed_workload:
+        print("workload        : mixed")
+    else:
+        print(f"prompt tokens   : {args.prompt_tokens}")
+        print(f"output tokens   : {args.output_tokens}")
     print(f"duration        : {trace_duration_s}")
     print(f"seed            : {trace_seed}")
     print(f"num requests    : {len(requests)}")
