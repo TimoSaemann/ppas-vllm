@@ -78,11 +78,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--mixed-workload",
-        action="store_true",
-        help=(
-            "Use the heterogeneous 20-shape long-context workload "
-            "defined in MIXED_WORKLOAD."
-        ),
+        choices=[
+            "qwen_heterogeneous",
+            "nemotron_heterogeneous",
+        ],
+        default=None,
+        help="Use a predefined heterogeneous workload.",
     )
 
     parser.add_argument(
@@ -229,6 +230,19 @@ def parse_configs(
             )
             continue
 
+        if item == "ppas_plus_qwen":
+            configs.append(
+                ServerConfig(
+                    name=f"ppas_plus_2k_768_s{max_num_seqs}",
+                    max_num_batched_tokens=2048,
+                    max_num_seqs=max_num_seqs,
+                    ppas_plus_enabled=True,
+                    ppas_b_cap=768,
+                    ppas_large_prefill_threshold=32768,
+                )
+            )
+            continue
+
         if item == "ppas_nemotron":
             configs.append(
                 ServerConfig(
@@ -327,44 +341,49 @@ def make_prompt(
     return unique_prefix + [filler_id] * (prompt_tokens - prefix_length)
 
 # Uniform 4 x 5 grid of prompt and output lengths.
-MIXED_WORKLOAD = [
-    (1 / 20,  16384,  16),
-    (1 / 20,  16384,  32),
-    (1 / 20,  16384,  64),
-    (1 / 20,  16384, 128),
-    (1 / 20,  16384, 256),
 
-    (1 / 20,  32768,  16),
-    (1 / 20,  32768,  32),
-    (1 / 20,  32768,  64),
-    (1 / 20,  32768, 128),
-    (1 / 20,  32768, 256),
+def make_uniform_mixed_workload(
+    prompt_lengths: list[int],
+    output_lengths: list[int],
+) -> list[tuple[float, int, int]]:
+    combinations = [
+        (prompt_tokens, output_tokens)
+        for prompt_tokens in prompt_lengths
+        for output_tokens in output_lengths
+    ]
 
-    (1 / 20,  65536,  16),
-    (1 / 20,  65536,  32),
-    (1 / 20,  65536,  64),
-    (1 / 20,  65536, 128),
-    (1 / 20,  65536, 256),
+    probability = 1.0 / len(combinations)
 
-    (1 / 20, 131072,  16),
-    (1 / 20, 131072,  32),
-    (1 / 20, 131072,  64),
-    (1 / 20, 131072, 128),
-    (1 / 20, 131072, 256),
-]
+    return [
+        (probability, prompt_tokens, output_tokens)
+        for prompt_tokens, output_tokens in combinations
+    ]
+
+
+MIXED_WORKLOADS = {
+    "qwen_heterogeneous": make_uniform_mixed_workload(
+        prompt_lengths=[8192, 16384, 32768, 65536],
+        output_lengths=[16, 32, 64, 128, 256],
+    ),
+    "nemotron_heterogeneous": make_uniform_mixed_workload(
+        prompt_lengths=[16384, 32768, 65536, 131072],
+        output_lengths=[16, 32, 64, 128, 256],
+    ),
+}
 
 def assign_mixed_workload_shapes(
     requests: list[RequestSpec],
     rng: random.Random,
+    workload: list[tuple[float, int, int]],
 ) -> None:
     if not requests:
         return
 
-    probabilities = [item[0] for item in MIXED_WORKLOAD]
+    probabilities = [item[0] for item in workload]
 
     if not np.isclose(sum(probabilities), 1.0):
         raise ValueError(
-            "MIXED_WORKLOAD probabilities must sum to 1.0, "
+            "Mixed workload probabilities must sum to 1.0, "
             f"got {sum(probabilities):.6f}."
         )
 
@@ -373,7 +392,7 @@ def assign_mixed_workload_shapes(
     # Ideal (possibly fractional) number of requests per workload.
     expected_counts = [
         probability * num_requests
-        for probability, _, _ in MIXED_WORKLOAD
+        for probability, _, _ in workload
     ]
 
     # First assign the integer floor.
@@ -391,7 +410,7 @@ def assign_mixed_workload_shapes(
         for expected, count in zip(expected_counts, counts)
     ]
 
-    indices = list(range(len(MIXED_WORKLOAD)))
+    indices = list(range(len(workload)))
 
     # Random tie-breaking avoids always favoring the first workload
     # when fractional remainders are identical.
@@ -410,7 +429,7 @@ def assign_mixed_workload_shapes(
 
     for count, (_, prompt_tokens, output_tokens) in zip(
         counts,
-        MIXED_WORKLOAD,
+        workload,
     ):
         shapes.extend(
             [(prompt_tokens, output_tokens)] * count
@@ -486,8 +505,12 @@ def sample_trace(
                     phase_rate=args.request_rate,
                 )
             )
-    if args.mixed_workload:
-        assign_mixed_workload_shapes(requests, rng)
+    if args.mixed_workload is not None:
+        assign_mixed_workload_shapes(
+            requests,
+            rng,
+            MIXED_WORKLOADS[args.mixed_workload],
+        )
     return requests
 
 def trace_features(requests: list[RequestSpec], duration_s: float) -> dict:
@@ -527,7 +550,7 @@ def start_vllm(
         "--host", "0.0.0.0",
         "--port", "8000",
         "--no-enable-log-requests",
-        "--max-model-len", "132000",
+        "--max-model-len", "67000",
         "--language-model-only",
         "--skip-mm-profiling",
         "--kv-cache-dtype", "fp8_e4m3",
@@ -1093,8 +1116,8 @@ async def main() -> None:
     else:
         print(f"request rate    : {args.request_rate}")
 
-    if args.mixed_workload:
-        print("workload        : mixed")
+    if args.mixed_workload is not None:
+        print(f"workload        : {args.mixed_workload}")
     else:
         print(f"prompt tokens   : {args.prompt_tokens}")
         print(f"output tokens   : {args.output_tokens}")
