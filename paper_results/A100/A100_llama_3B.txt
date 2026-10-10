@@ -1,0 +1,488 @@
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed0
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 13
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 2.8869506649386425, 'p95_latency': 5.004621950909495, 'avg_ttft': 1.8160747352700968, 'p95_ttft': 2.1784958016127347, 'avg_tpot': 0.0345443848280176, 'p95_tpot': 0.09930202987405559, 'makespan': 32.38000158779323, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.617051190051895, 'p95_latency': 4.315845583379268, 'avg_ttft': 1.6440924007732134, 'p95_ttft': 1.9987612795084713, 'avg_tpot': 0.0313857673960865, 'p95_tpot': 0.0833254815950509, 'makespan': 32.14880099706352, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed0
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 22
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 5.90625652577728, 'p95_latency': 10.273303445801139, 'avg_ttft': 3.621936373243278, 'p95_ttft': 6.751682466175407, 'avg_tpot': 0.07368774685593557, 'p95_tpot': 0.11423489903850902, 'makespan': 42.83592466823757, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 7.319291141476821, 'p95_latency': 14.53350134100765, 'avg_ttft': 2.922598100182685, 'p95_ttft': 5.296841699257493, 'avg_tpot': 0.1418288077836818, 'p95_tpot': 0.41835809242761424, 'makespan': 42.61652902700007, 'failed': 0, 'error': ''}
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed1
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 13
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 3.84191652158132, 'p95_latency': 5.231293155252933, 'avg_ttft': 2.1903138862779508, 'p95_ttft': 3.3000908199697725, 'avg_tpot': 0.053277504364624806, 'p95_tpot': 0.10784685323315282, 'makespan': 40.74092359468341, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 3.4063694743582835, 'p95_latency': 5.107709777727722, 'avg_ttft': 2.0180681862223606, 'p95_ttft': 3.2034425769001245, 'avg_tpot': 0.04478391252051364, 'p95_tpot': 0.10223569594804312, 'makespan': 40.65397719852626, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed1
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 32
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 10.015749286918435, 'p95_latency': 16.62336667384952, 'avg_ttft': 6.938350421725772, 'p95_ttft': 14.512775576859712, 'avg_tpot': 0.0992709311352472, 'p95_tpot': 0.11924100688868954, 'makespan': 56.85266986116767, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 14.843304779438768, 'p95_latency': 21.86528164073825, 'avg_ttft': 5.763372695248108, 'p95_ttft': 11.856222112197429, 'avg_tpot': 0.29290103497389225, 'p95_tpot': 0.5793184979308036, 'makespan': 54.31920962035656, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed2
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 11
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 3.1434904487634245, 'p95_latency': 4.904636503197253, 'avg_ttft': 2.2097796149213207, 'p95_ttft': 3.819532980211079, 'avg_tpot': 0.030119704317487228, 'p95_tpot': 0.08967640890829986, 'makespan': 30.823363460600376, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.972758323631503, 'p95_latency': 5.889782189391553, 'avg_ttft': 2.3098468949848954, 'p95_ttft': 5.201124843209982, 'avg_tpot': 0.021384239633761543, 'p95_tpot': 0.0678277058947471, 'makespan': 30.741901472210884, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed2
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 21
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 21, 'request_rate': 0.42, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 7.341689089047057, 'p95_latency': 9.88037039898336, 'avg_ttft': 4.560476874666555, 'p95_ttft': 6.866481874138117, 'avg_tpot': 0.08971652304453234, 'p95_tpot': 0.11378273908649722, 'makespan': 37.034946888685226, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 21, 'request_rate': 0.42, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 9.594662389052766, 'p95_latency': 15.662445820868015, 'avg_ttft': 3.8263081261622056, 'p95_ttft': 5.583828801289201, 'avg_tpot': 0.18607594396421162, 'p95_tpot': 0.39119651324806676, 'makespan': 35.782632019370794, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed3
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 15
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 3.1201854780316354, 'p95_latency': 5.542458503507077, 'avg_ttft': 2.144372718160351, 'p95_ttft': 3.624816569313406, 'avg_tpot': 0.03147783096358981, 'p95_tpot': 0.09081179869150922, 'makespan': 44.14263223670423, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.8256236934413512, 'p95_latency': 4.8332734618335955, 'avg_ttft': 2.0071564968675375, 'p95_ttft': 3.6836152950301764, 'avg_tpot': 0.026402167631413346, 'p95_tpot': 0.08254839328508222, 'makespan': 44.076760755851865, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed3
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 25
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 5.431073159202933, 'p95_latency': 9.03095655478537, 'avg_ttft': 3.257227926030755, 'p95_ttft': 6.501131347939369, 'avg_tpot': 0.07012403977974768, 'p95_tpot': 0.1141868668458154, 'makespan': 49.99230710417032, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.601579854488373, 'p95_latency': 11.894003270938988, 'avg_ttft': 2.737358257845044, 'p95_ttft': 5.153932874277233, 'avg_tpot': 0.12465230956913964, 'p95_tpot': 0.321314329437671, 'makespan': 49.90376746840775, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed4
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 18
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 3.1756125919313893, 'p95_latency': 5.0394570176489655, 'avg_ttft': 1.9936164936257734, 'p95_ttft': 3.046455649565905, 'avg_tpot': 0.03812890639695536, 'p95_tpot': 0.10627775570197451, 'makespan': 48.321784568950534, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.9649398664219513, 'p95_latency': 5.370768615510315, 'avg_ttft': 1.7785884959416256, 'p95_ttft': 2.448602632246911, 'avg_tpot': 0.038269399047752437, 'p95_tpot': 0.1255267186120393, 'makespan': 48.23614649288356, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed4
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs 2048,16384 --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  mbt_2048_s256: max_num_batched_tokens=2048, max_num_seqs=256
+  mbt_16384_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 28
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 2048 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_2048_s256', 'max_num_batched_tokens': 2048, 'max_num_seqs': 256, 'avg_latency': 5.699186654495342, 'p95_latency': 10.18924307571724, 'avg_ttft': 3.612393890108381, 'p95_ttft': 7.183065698761492, 'avg_tpot': 0.06731589562538581, 'p95_tpot': 0.11401566496239074, 'makespan': 45.645911207422614, 'failed': 0, 'error': ''}
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'mbt_16384_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.31334845402411, 'p95_latency': 11.399917055293917, 'avg_ttft': 3.2578173565146114, 'p95_ttft': 6.3547644831240175, 'avg_tpot': 0.09856551927449997, 'p95_tpot': 0.26104947824872304, 'makespan': 44.548756785690784, 'failed': 0, 'error': ''}
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed0
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 13
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.5100298647124033, 'p95_latency': 3.684292313456534, 'avg_ttft': 1.632881014679487, 'p95_ttft': 1.9918742980808017, 'avg_tpot': 0.028295124194610208, 'p95_tpot': 0.062094332614252595, 'makespan': 32.14425169117749, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed0
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 0 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 0
+num requests    : 22
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 0, 'workload_type': 'rag', 'num_requests': 22, 'request_rate': 0.44, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 6.0386058192022825, 'p95_latency': 11.157800649758428, 'avg_ttft': 3.421868730251762, 'p95_ttft': 6.742581570986658, 'avg_tpot': 0.08441087383711356, 'p95_tpot': 0.16117431059359544, 'makespan': 42.62105650268495, 'failed': 0, 'error': ''}
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed1
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 13
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 13, 'request_rate': 0.26, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 3.4800855258049874, 'p95_latency': 5.309759460762143, 'avg_ttft': 2.022865472218165, 'p95_ttft': 3.000520167872309, 'avg_tpot': 0.047007098502800715, 'p95_tpot': 0.10411034552080009, 'makespan': 40.6553579159081, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed1
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 1 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 1
+num requests    : 32
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 1, 'workload_type': 'rag', 'num_requests': 32, 'request_rate': 0.64, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 4, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 10.327854402596131, 'p95_latency': 17.394005805253983, 'avg_ttft': 7.112692223279737, 'p95_ttft': 15.097829003445804, 'avg_tpot': 0.10371490901020626, 'p95_tpot': 0.13547185290184233, 'makespan': 57.281976299360394, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed2
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 11
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 11, 'request_rate': 0.22, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.977478589354591, 'p95_latency': 4.751251177862287, 'avg_ttft': 2.0737569467587904, 'p95_ttft': 3.6337724961340427, 'avg_tpot': 0.029152311051477437, 'p95_tpot': 0.08409195564567082, 'makespan': 30.73716724663973, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed2
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 2 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 2
+num requests    : 21
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 2, 'workload_type': 'rag', 'num_requests': 21, 'request_rate': 0.42, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 7.610762895838845, 'p95_latency': 10.187952669337392, 'avg_ttft': 4.579103656556635, 'p95_ttft': 7.0691358502954245, 'avg_tpot': 0.09779545933168421, 'p95_tpot': 0.14235418962855492, 'makespan': 36.807624807581306, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed3
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 15
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 15, 'request_rate': 0.3, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 2.822894261777401, 'p95_latency': 4.831696288473903, 'avg_ttft': 1.9867410606394211, 'p95_ttft': 3.436206420697271, 'avg_tpot': 0.026972683907676768, 'p95_tpot': 0.08260601481362696, 'makespan': 44.056364215910435, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed3
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 3 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 3
+num requests    : 25
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 3, 'workload_type': 'rag', 'num_requests': 25, 'request_rate': 0.5, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 3, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 5.649247152134776, 'p95_latency': 9.651084244251251, 'avg_ttft': 3.0836991802603007, 'p95_ttft': 6.368694136664269, 'avg_tpot': 0.08275961199595082, 'p95_tpot': 0.17303261559817099, 'makespan': 49.90936119295657, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-0p4_10-0p2_10-0p4_10-0p2_seed4
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:0.4,10:0.2,10:0.4,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 18
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:0.4,10:0.2,10:0.4,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 18, 'request_rate': 0.36, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 2, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 3.015909295011726, 'p95_latency': 5.419061271194368, 'avg_ttft': 1.7985967278687491, 'p95_ttft': 2.480398675799369, 'avg_tpot': 0.0392681473271928, 'p95_tpot': 0.12684263916566005, 'makespan': 48.24094218015671, 'failed': 0, 'error': ''}
+====================================================================================================
+EXPERIMENT: piecewise_model-llama_3b_p25000_o32_phases-10-0p2_10-1p0_10-0p2_10-1p0_10-0p2_seed4
+RUN: /opt/vllm-exp/bin/python benchmark_vLLM.py --model llama_3b --prompt-tokens 25000 --output-tokens 32 --arrival-mode piecewise_poisson --seed 4 --configs ppas --max-num-seqs 256 --phases 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+====================================================================================================
+Selected server configurations:
+  ppas_16k_s256: max_num_batched_tokens=16384, max_num_seqs=256
+================================================================================
+================================================================================
+TRACE 0
+workload        : rag
+arrival mode    : piecewise_poisson
+phases          : 10:0.2,10:1.0,10:0.2,10:1.0,10:0.2
+prompt tokens   : 25000
+output tokens   : 32
+duration        : 50.0
+seed            : 4
+num requests    : 28
+================================================================================
+START SERVER: vllm serve meta-llama/Llama-3.2-3B-Instruct --host 0.0.0.0 --port 8000 --no-enable-log-requests --max-num-batched-tokens 16384 --max-num-seqs 256
+Waiting for vLLM startup...
+STOP SERVER
+{'trace_id': 0, 'configured_prompt_tokens': 25000, 'configured_output_tokens': 32, 'configured_request_rate': 'piecewise', 'phase_schedule': '10:0.2,10:1.0,10:0.2,10:1.0,10:0.2', 'arrival_mode': 'piecewise_poisson', 'seed': 4, 'workload_type': 'rag', 'num_requests': 28, 'request_rate': 0.56, 'prompt_mean': 25000, 'prompt_p50': 25000.0, 'prompt_p95': 25000.0, 'prompt_max': 25000, 'output_mean': 32, 'output_p50': 32.0, 'output_p95': 32.0, 'output_max': 32, 'peak_arrivals_1s': 5, 'config_name': 'ppas_16k_s256', 'max_num_batched_tokens': 16384, 'max_num_seqs': 256, 'avg_latency': 5.722956044333322, 'p95_latency': 10.530306825321166, 'avg_ttft': 3.479958203820778, 'p95_ttft': 7.232615168578922, 'avg_tpot': 0.07235476904879173, 'p95_tpot': 0.14020150696798678, 'makespan': 45.45831694453955, 'failed': 0, 'error': ''}
+
+
