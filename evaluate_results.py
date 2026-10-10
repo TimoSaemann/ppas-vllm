@@ -19,7 +19,7 @@ The script:
 Example
 -------
 python evaluate_results.py \
-    --input results/nemotron/ppas_hetero_final.txt \
+    --input results/vllm_0.27.1/nemotron/ppas_heterogeneous_nemotron.txt \
     --request-types
 """
 
