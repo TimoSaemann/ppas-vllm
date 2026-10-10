@@ -255,6 +255,9 @@ The additional large-model P-PAS experiments and heterogeneous P-PAS+
 evaluation use **vLLM 0.27.1**. The current repository contains their
 scheduler implementation, benchmark scripts, and result files.
 
+The `v2.0-paper` tag preserves the repository state corresponding to the
+revised paper.
+
 ## Citation
 
 If you use P-PAS or this repository in your research, please cite:
